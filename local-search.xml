@@ -4,38 +4,23 @@
   
   
   <entry>
-    <title>Hello World</title>
-    <link href="/2023/04/02/hello-world/"/>
-    <url>/2023/04/02/hello-world/</url>
+    <title>建立博客</title>
+    <link href="/2023/03/20/%E5%BB%BA%E7%AB%99/"/>
+    <url>/2023/03/20/%E5%BB%BA%E7%AB%99/</url>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>test</title>
-    <link href="/2023/03/20/mytest/"/>
-    <url>/2023/03/20/mytest/</url>
-    
-    <content type="html"><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>mytest</p>]]></content>
+    <content type="html"><![CDATA[<h3 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h3><p>首先优先选择Hexo是因为Node.js已经安装好了，比较方便</p><p>主题选择：Fluid</p><ul><li><p>主题需要简洁，因为博客定位是笔记记录整理</p></li><li><p>需要有一定的美观（因为这个放弃了next主题）</p></li><li><p>基本的页面：首页 归档 分类(支持多级分类) 、标签、搜索功能</p></li></ul><h3 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h3><h4 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h4><ol><li>安装Nodejs</li><li>安装脚手架<code>npm install -g hexo-cli</code></li></ol><h4 id="初始化博客"><a href="#初始化博客" class="headerlink" title="初始化博客"></a>初始化博客</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo init blog   <span class="hljs-comment"># 初始化博客</span><br><span class="hljs-built_in">cd</span> blog<br>npm instal<br><br><br>hexo new fistt <span class="hljs-comment"># 创建第一个页面 填写内容</span><br><br>hexo g <span class="hljs-comment"># 生成文件</span><br>hexo s <span class="hljs-comment"># 启动  localhost:4000可以查看博客</span><br></code></pre></td></tr></table></figure><h4 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h4><ol><li><p>新建 <code>用户名.github.io</code> 的仓库</p></li><li><p>配置博客推送到对应仓库</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span>  <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">git@github.com:Goinggoinggoing/Goinggoinggoing.github.io.git</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">main</span><br></code></pre></td></tr></table></figure></li><li><p><code>npm install hexo-deployer-git --save</code>  安装git部署插件</p></li><li><p><code>hexo d</code> 推送到仓库</p></li></ol><h4 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h4><ol><li><p><code>npm install --save hexo-theme-fluid</code></p></li><li><p>修改_config.yml</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">theme: fluid  <span class="hljs-comment"># 指定主题</span><br>language: zh-CN  <span class="hljs-comment"># 指定语言</span><br></code></pre></td></tr></table></figure></li><li><p>重新生成并启动</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g <br>hexo s <br></code></pre></td></tr></table></figure></li></ol><h4 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h4><p>​<a href="https://hexo.fluid-dev.com/docs/guide/">官方文档</a></p><h4 id="文章配置"><a href="#文章配置" class="headerlink" title="文章配置"></a>文章配置</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">文章标题</span><br><span class="hljs-attr">tags:</span> [<span class="hljs-string">Hexo</span>, <span class="hljs-string">Fluid</span>]<br><span class="hljs-attr">categories:</span> [<span class="hljs-string">开发</span>, <span class="hljs-string">项目</span>]<br><span class="hljs-attr">date:</span> <span class="hljs-number">2019-10-10 10:00:00</span><br><br><span class="hljs-attr">hide:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 但可以通过链接访问</span><br><span class="hljs-attr">sticky:</span> <span class="hljs-number">100</span> <span class="hljs-comment"># 文章排序顺序 越大越前</span><br><br><span class="hljs-attr">index_img:</span> <span class="hljs-string">/img/example.jpg</span> <span class="hljs-comment"># 封面图</span><br><span class="hljs-attr">banner_img:</span> <span class="hljs-string">/img/post_banner.jpg</span>  <span class="hljs-comment">#顶部图</span><br><span class="hljs-meta">---</span><br><span class="hljs-string">以下是文章内容</span><br><br></code></pre></td></tr></table></figure><h3 id="图片展示"><a href="#图片展示" class="headerlink" title="图片展示"></a>图片展示</h3><h4 id="方法1："><a href="#方法1：" class="headerlink" title="方法1："></a>方法1：</h4><ul><li>修改博客配置文件，<code>post_asset_folder: true</code>，使得每次生成文章时默认携带一个同名文件夹，用来存放图片</li><li>引用图片： <code>![](test.png)</code>   或  <code>&#123;% asset_img test.png 图片引用方法一 %&#125;</code></li><li>存在的问题：本地typora记笔记是记录到  name.asset&#x2F;test.png，这样从本地到博客需要转换很麻烦</li></ul><h4 id="方法2："><a href="#方法2：" class="headerlink" title="方法2："></a>方法2：</h4><p>​搭建github图床，每次本地完成后通过PicGo一键上传到图床，即可访问图片</p><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20230402195401606.png" alt="image-20230402195401606"></p><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul><li><a href="https://blog.csdn.net/yaorongke/article/details/119089190">GitHub Pages + Hexo搭建个人博客网站，史上最全教程_淡淡的说非的博客-CSDN博客</a></li></ul>]]></content>
     
     
     <categories>
       
-      <category>开发</category>
-      
-      <category>项目</category>
+      <category>日常</category>
       
     </categories>
     
     
     <tags>
       
-      <tag>java项目</tag>
+      <tag>日常</tag>
       
     </tags>
     
