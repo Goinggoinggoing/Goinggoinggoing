@@ -16,24 +16,25 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="主题选择首先优先选择Hexo是因为Node.js已经安装好了，比较方便 主题选择：Fluid  主题需要简洁，因为博客定位是笔记记录整理  需要有一定的美观（因为这个放弃了next主题）  基本的页面：首页 归档 分类(支持多级分类) 、标签、搜索功能   开始使用安装环境 安装Nodejs 安装脚手架npm install -g hexo-cli  初始化博客123456789hexo init">
+    <meta name="description" content="操作系统笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="建立博客">
-<meta property="og:url" content="http://example.com/2023/03/20/%E5%BB%BA%E7%AB%99/index.html">
+<meta property="og:title" content="操作系统">
+<meta property="og:url" content="http://example.com/2021/08/08/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="Xun&#39;s Blog">
-<meta property="og:description" content="主题选择首先优先选择Hexo是因为Node.js已经安装好了，比较方便 主题选择：Fluid  主题需要简洁，因为博客定位是笔记记录整理  需要有一定的美观（因为这个放弃了next主题）  基本的页面：首页 归档 分类(支持多级分类) 、标签、搜索功能   开始使用安装环境 安装Nodejs 安装脚手架npm install -g hexo-cli  初始化博客123456789hexo init">
+<meta property="og:description" content="操作系统笔记">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20230402195401606.png">
-<meta property="article:published_time" content="2023-03-20T11:33:46.000Z">
-<meta property="article:modified_time" content="2023-04-02T11:57:26.150Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20210807140817329.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20210807141320862.png">
+<meta property="article:published_time" content="2021-08-08T12:33:46.000Z">
+<meta property="article:modified_time" content="2023-04-06T12:20:17.567Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="日常">
+<meta property="article:tag" content="计算机基础">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20230402195401606.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20210807140817329.png">
   
   
   
-  <title>建立博客 - Xun&#39;s Blog</title>
+  <title>操作系统 - Xun&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +217,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">建立博客</span>
+            <span id="subtitle">操作系统</span>
           
         </div>
 
@@ -227,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-20 19:33" pubdate>
-          2023年3月20日 晚上
+        <time datetime="2021-08-08 20:33" pubdate>
+          2021年8月8日 晚上
         </time>
       </span>
     
@@ -239,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          2k 字
         
       </span>
     
@@ -250,7 +251,7 @@
         
         
         
-          9 分钟
+          17 分钟
         
       </span>
     
@@ -296,64 +297,109 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">建立博客</h1>
+            <h1 style="display: none">操作系统</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="主题选择"><a href="#主题选择" class="headerlink" title="主题选择"></a>主题选择</h3><p>首先优先选择Hexo是因为Node.js已经安装好了，比较方便</p>
-<p>主题选择：Fluid</p>
+                <p>[TOC]</p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><ul>
+<li>并发：宏观上同时运行</li>
+<li>共享：并发进程共同享用资源 </li>
+<li>虚拟：一个物理实体对应多个逻辑</li>
+<li>异步：进程走走停停</li>
+</ul>
+<h4 id="os不同时期发展"><a href="#os不同时期发展" class="headerlink" title="os不同时期发展"></a><strong>os不同时期发展</strong></h4><p>​	人工、单道、多道、分时（时间片多用户）、实时</p>
+<h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><p>​	用户接口；联机（cmd）、脱机（程序）、图形化</p>
+<p>​	程序接口：系统调用组成。程序调用相应功能系统调用</p>
+<p>​	大内核（模块集中）、微内核</p>
+<h2 id="2-进程"><a href="#2-进程" class="headerlink" title="2.进程"></a>2.进程</h2><p>作业比程序更广泛，包含程序、数据和作业说明书</p>
+<p><strong>程序</strong>是个静态的概念，<strong>进程</strong>是程序的一次执行</p>
+<p><strong>进程</strong>：对并发执行的程序的控制和描述</p>
+<p><strong>拥有资源</strong>（代码段 数据段  IO），<strong>唯一</strong>PCB</p>
+<h4 id="特征-1"><a href="#特征-1" class="headerlink" title="特征"></a>特征</h4><p>​	动态性、并发性、独立性、异步</p>
+<h4 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h4><h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20210807140817329.png" srcset="/img/loading.gif" lazyload alt="image-20210807140817329">编译</h4><h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20210807141320862.png" srcset="/img/loading.gif" lazyload alt="image-20210807141320862">线程</h4><p>​	进程：处理机资源最小单位        创建、撤销和切换代价大</p>
+<p>​	线程：处理机调度单位         轻量级进程    TCB          QQ中与不同好友聊天</p>
+<p>​	临界资源与临界区</p>
+<h4 id="临界资源"><a href="#临界资源" class="headerlink" title="临界资源"></a>临界资源</h4><p>​	1.关中断</p>
+<p>​	2.bool变量标识，while等待 ；    swap对换 原理一样         <strong>忙碌等待</strong></p>
+<h4 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h4><p>​	<strong>PV操作</strong></p>
+<p>​	S表示资源数目，当多个资源时，AND机制</p>
+<p>​	wait：  s–     if s &lt; 0，线程加入等待队列  </p>
+<p>​	signal：s++  if  s&lt;&#x3D;0, 唤醒等待队列</p>
+<p>​    <strong>常见问题</strong>：生产者消费者、进餐、读写     （互斥加紧范围小）</p>
+<h4 id="调度分类"><a href="#调度分类" class="headerlink" title="调度分类"></a>调度分类</h4><ul>
+<li>​	高级调度（作业调度）：外存到内存 并分配资源   根据JCB</li>
+<li>​	中级调度（内存调度）：阻塞程序调入外存，提高利用率和吞吐量     </li>
+<li>​	低级调度（进程调度）：分配cpu          （抢占、非抢占）</li>
+</ul>
+<h4 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h4><h5 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h5><ul>
+<li>​	先来先服务FCFS</li>
+<li>​	短作业优先SJF</li>
+<li>​	高响应比HRRN    (等待+服务时间)&#x2F;服务时间</li>
+<li>​	优先级调度PSA</li>
+</ul>
+<h5 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h5><ul>
+<li>​	轮转RR</li>
+<li>​	优先级（抢占、非抢占）</li>
+<li>​	多级反馈队列：高优先级时间片短，未完成则降级</li>
+</ul>
+<h5 id="实时"><a href="#实时" class="headerlink" title="实时"></a>实时</h5><ul>
+<li>​	最早截止EDF（抢占、非抢占）</li>
+<li>​	最低松弛度优先LLF（不得不开始时抢占）</li>
+<li>​	优先倒置（1.不让抢占临界区  2.优先度继承）</li>
+</ul>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>​	<strong>条件</strong>：互斥、请求和保持、不可抢占、循环等待</p>
+<p>​	<strong>处理方法</strong>：预防死锁（一次性分配资源、允许抢占）、避免死锁（银行家：在一次分配完后检查是否有安全序列能实现全部运行）、监测死锁（资源分配图）、解除死锁（资源剥夺、终止进程）</p>
+<h2 id="3-内存"><a href="#3-内存" class="headerlink" title="3.内存"></a>3.内存</h2><h4 id="内存分配（连续）"><a href="#内存分配（连续）" class="headerlink" title="内存分配（连续）"></a>内存分配（连续）</h4><p>​	<strong>单一连续分配</strong>（单程序）、<strong>固定分区分配</strong>（区域大小固定）、</p>
+<p>​	<strong>动态分区分配</strong>（每个区由一个双向指针连接起来）</p>
+<h5 id="顺序方法"><a href="#顺序方法" class="headerlink" title="顺序方法"></a>顺序方法</h5><p>​		首次适应FF：开头开始找到就用   			循环首次适应NF：从上一次开始</p>
+<p>​		最佳适应BF：分配最小的能用的         	  最坏适应WF：分配最大的区域</p>
+<h5 id="索引方法"><a href="#索引方法" class="headerlink" title="索引方法"></a>索引方法</h5><ul>
+<li>​	快速适应：多个按大小划分的链表（2kb，5kb..）</li>
+<li>​	伙伴系统：多个链表大小为2^i^ ，不存在该大小区域则拆分2^i+1^链表</li>
+</ul>
+<p>​		用哈希来寻找表头指针</p>
+<h4 id="分页管理（离散）"><a href="#分页管理（离散）" class="headerlink" title="分页管理（离散）"></a>分页管理（离散）</h4><p>​	内存以页面为单位，地址&#x3D;页号+页内地址   ， 页面大小1kb~8kb</p>
+<p>​	所以程序的<strong>逻辑地址</strong>都转为<strong>分页地址</strong>。</p>
+<p>​	<strong>页表</strong>：程序中页号（逻辑地址）与内存页号（物理地址）<strong>对应关系</strong>，存放在内存中。PCB中的PTR保持页表起始地址。 页表在<strong>内存管理单元</strong>（MMU）中</p>
+<p>​		每次访问需要访问两次内存，引入<strong>快表</strong>（高速缓冲寄存器） ；查询时间  <strong>2t + λ -t*a</strong> </p>
+<p>​	<strong>多级列表</strong>：将页表空间离散，2^20^  &#x3D;  2^10^  * 2^10^</p>
+<h4 id="分段管理"><a href="#分段管理" class="headerlink" title="分段管理"></a>分段管理</h4><p>​	满足编程上要求，主程序、子程序、数据段</p>
+<p>​	当用户共享一段内存时，只需要一个段表，而分页需要多个</p>
+<h4 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h4><p>​	时间、空间<strong>局部性</strong></p>
+<p>​	作业的页面可能不在内存中，需要从外存调入</p>
+<p>​	分配规则：规定分配局部置换（单程序内换）、可变分配局部置换（一起换）、可变分配局部置换（动态加页）</p>
+<h5 id="置换算法"><a href="#置换算法" class="headerlink" title="置换算法"></a>置换算法</h5><ul>
+<li>​	最佳置换算法 （无法实现）</li>
+<li>​	先进先出</li>
+<li>​	最久未使用LRU</li>
+<li>​	最少使用LFU   -&gt;  Clock算法  （第一次不换出）</li>
+</ul>
+<h2 id="4-文件"><a href="#4-文件" class="headerlink" title="4.文件"></a>4.文件</h2><p>文件：一系列记录</p>
+<p>记录：一系列数据，有key</p>
+<h4 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h4><p>​	顺序文件：顺序存储记录，读取N&#x2F;2</p>
+<p>​	索引文件：按键排序建立索引表，logN复杂度</p>
+<h4 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h4><p>单级目录、多级目录、树形目录</p>
+<h4 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h4><p>连续组织方式</p>
+<p>链接组织方式：隐式（只存首地址，下一个盘块在当前盘块中），显式（全存到FCB中）FAT表 </p>
+<h2 id="5-io"><a href="#5-io" class="headerlink" title="5.io"></a>5.io</h2><h4 id="磁盘-1"><a href="#磁盘-1" class="headerlink" title="磁盘"></a>磁盘</h4><p>​	盘面 磁道 扇区</p>
+<p>寻道+旋转+传输</p>
+<h4 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h4><ul>
+<li>先来先服务FCFS</li>
+<li>最短寻道时间SSTF</li>
+<li>电梯算法：电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。</li>
+<li>CSCAN：单方向电梯</li>
+</ul>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="进程间通信方式："><a href="#进程间通信方式：" class="headerlink" title="进程间通信方式："></a>进程间通信方式：</h3><p>​	管道  消息队列  信号量 套接字socket</p>
+<h3 id="临界区："><a href="#临界区：" class="headerlink" title="临界区："></a>临界区：</h3><p>​	访问临界资源的片段</p>
+<h3 id="什么是用户态和内核态？"><a href="#什么是用户态和内核态？" class="headerlink" title="什么是用户态和内核态？"></a>什么是用户态和内核态？</h3><p>限制访问能力，防止一些程序访问其它程序的内存数据</p>
 <ul>
-<li><p>主题需要简洁，因为博客定位是笔记记录整理</p>
-</li>
-<li><p>需要有一定的美观（因为这个放弃了next主题）</p>
-</li>
-<li><p>基本的页面：首页 归档 分类(支持多级分类) 、标签、搜索功能</p>
-</li>
+<li>用户态：受限地访问内存，且不允许访问外围设备，没有占用CPU的能力，CPU资源可以被其它程序获取；</li>
+<li>内核态：内存所有数据、外围设备，程序的切换。</li>
 </ul>
-<h3 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h3><h4 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h4><ol>
-<li>安装Nodejs</li>
-<li>安装脚手架<code>npm install -g hexo-cli</code></li>
-</ol>
-<h4 id="初始化博客"><a href="#初始化博客" class="headerlink" title="初始化博客"></a>初始化博客</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo init blog   <span class="hljs-comment"># 初始化博客</span><br><span class="hljs-built_in">cd</span> blog<br>npm instal<br><br><br>hexo new fistt <span class="hljs-comment"># 创建第一个页面 填写内容</span><br><br>hexo g <span class="hljs-comment"># 生成文件</span><br>hexo s <span class="hljs-comment"># 启动  localhost:4000可以查看博客</span><br></code></pre></td></tr></table></figure>
-
-
-
-<h4 id="部署到github"><a href="#部署到github" class="headerlink" title="部署到github"></a>部署到github</h4><ol>
-<li><p>新建 <code>用户名.github.io</code> 的仓库</p>
-</li>
-<li><p>配置博客推送到对应仓库</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">deploy:</span><br>  <span class="hljs-attr">type:</span>  <span class="hljs-string">git</span><br>  <span class="hljs-attr">repo:</span> <span class="hljs-string">git@github.com:Goinggoinggoing/Goinggoinggoing.github.io.git</span><br>  <span class="hljs-attr">branch:</span> <span class="hljs-string">main</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><code>npm install hexo-deployer-git --save</code>  安装git部署插件</p>
-</li>
-<li><p><code>hexo d</code> 推送到仓库</p>
-</li>
-</ol>
-<h4 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h4><ol>
-<li><p><code>npm install --save hexo-theme-fluid</code></p>
-</li>
-<li><p>修改_config.yml</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">theme: fluid  <span class="hljs-comment"># 指定主题</span><br>language: zh-CN  <span class="hljs-comment"># 指定语言</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>重新生成并启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">hexo g <br>hexo s <br></code></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h4><p>​	<a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">官方文档</a></p>
-<h4 id="文章配置"><a href="#文章配置" class="headerlink" title="文章配置"></a>文章配置</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> <span class="hljs-string">文章标题</span><br><span class="hljs-attr">tags:</span> [<span class="hljs-string">Hexo</span>, <span class="hljs-string">Fluid</span>]<br><span class="hljs-attr">categories:</span> [<span class="hljs-string">开发</span>, <span class="hljs-string">项目</span>]<br><span class="hljs-attr">date:</span> <span class="hljs-number">2019-10-10 10:00:00</span><br><br><span class="hljs-attr">hide:</span> <span class="hljs-literal">true</span>						 <span class="hljs-comment"># 但可以通过链接访问</span><br><span class="hljs-attr">sticky:</span> <span class="hljs-number">100</span> 					<span class="hljs-comment"># 文章排序顺序 越大越前</span><br><br><span class="hljs-attr">index_img:</span> <span class="hljs-string">/img/example.jpg</span> 		<span class="hljs-comment"># 封面图</span><br><span class="hljs-attr">banner_img:</span> <span class="hljs-string">/img/post_banner.jpg</span>  <span class="hljs-comment">#	顶部图</span><br><span class="hljs-meta">---</span><br><span class="hljs-string">以下是文章内容</span><br><br></code></pre></td></tr></table></figure>
-
-
-
-<h3 id="图片展示"><a href="#图片展示" class="headerlink" title="图片展示"></a>图片展示</h3><h4 id="方法1："><a href="#方法1：" class="headerlink" title="方法1："></a>方法1：</h4><ul>
-<li>修改博客配置文件，<code>post_asset_folder: true</code>，使得每次生成文章时默认携带一个同名文件夹，用来存放图片</li>
-<li>引用图片： <code>![](test.png)</code>   或  <code>&#123;% asset_img test.png 图片引用方法一 %&#125;</code></li>
-<li>存在的问题：本地typora记笔记是记录到  name.asset&#x2F;test.png，这样从本地到博客需要转换很麻烦</li>
-</ul>
-<h4 id="方法2："><a href="#方法2：" class="headerlink" title="方法2："></a>方法2：</h4><p>​	搭建github图床，每次本地完成后通过PicGo一键上传到图床，即可访问图片</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20230402195401606.png" srcset="/img/loading.gif" lazyload alt="image-20230402195401606"></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yaorongke/article/details/119089190">GitHub Pages + Hexo搭建个人博客网站，史上最全教程_淡淡的说非的博客-CSDN博客</a></li>
-</ul>
+<p>所有用户程序都运行在用户态，但有时需要进行一些内核态的操作，比如从硬盘或者键盘读数据，这时就需要进行系统调用，使用<strong>陷阱指令</strong>，CPU切换到内核态，执行相应的服务，再切换为用户态并返回系统调用的结果。</p>
+<h3 id="什么是虚拟内存？"><a href="#什么是虚拟内存？" class="headerlink" title="什么是虚拟内存？"></a>什么是虚拟内存？</h3><p>程序地址页并非都在内存中，需要再装入。所以实际上有一部分是存储在磁盘上，因此叫做虚拟内存。</p>
 
                 
               </div>
@@ -372,8 +418,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%97%A5%E5%B8%B8/" class="category-chain-item">日常</a>
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/408/" class="category-chain-item">408</a>
+  
+  
+
   
 
       </span>
@@ -387,7 +440,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%97%A5%E5%B8%B8/">#日常</a>
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">#计算机基础</a>
       
     </div>
   
@@ -401,21 +454,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/20/B%E7%AB%99%E7%A7%92%E6%9D%80%E9%A1%B9%E7%9B%AE/" title="B站秒杀项目">
+                      <a href="/2021/09/08/%E6%9C%BA%E7%BB%84/" title="计算机组成原理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">B站秒杀项目</span>
+                        <span class="hidden-mobile">计算机组成原理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2021/09/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="B站秒杀项目">
-                        <span class="hidden-mobile">B站秒杀项目</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
