@@ -23,38 +23,40 @@
 <meta property="og:site_name" content="Xun&#39;s Blog">
 <meta property="og:description" content="1.概述目的 控制硬件软件资源 合理组织调度资源 为软件提供接口和环境   特征 并发：宏观上同时运行 共享：并发进程共同享用资源  虚拟：一个物理实体对应多个逻辑 异步：进程走走停停   os不同时期发展​	人工、单道、多道、分时（时间片多用户）、实时  接口​	用户接口；联机（cmd）、脱机（程序）、图形化 ​	程序接口：系统调用组成。程序调用相应功能系统调用 ​	大内核（模块集中）、微内核">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023469.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023472.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023473.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023474.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023475.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023476.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023477.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023478.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023479.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023480.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023481.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023482.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023483.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023484.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023485.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023486.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023487.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023488.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023489.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023490.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023491.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023492.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023493.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023494.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023495.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023496.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218610.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218611.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218612.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218614.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218615.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218616.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218617.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218618.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218619.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218620.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218621.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218622.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218623.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218624.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218625.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218627.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218628.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218629.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218630.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218631.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218632.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218633.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218634.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218635.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218636.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218637.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218636.png">
 <meta property="article:published_time" content="2021-08-08T12:33:46.000Z">
-<meta property="article:modified_time" content="2023-04-10T12:24:55.367Z">
+<meta property="article:modified_time" content="2023-04-19T04:19:36.435Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="计算机基础">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023469.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218610.png">
   
   
   
@@ -264,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          8k 字
         
       </span>
     
@@ -275,7 +277,7 @@
         
         
         
-          25 分钟
+          67 分钟
         
       </span>
     
@@ -344,31 +346,31 @@
 <li>合理组织调度资源</li>
 <li>为软件提供接口和环境</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023469.png" srcset="/img/loading.gif" lazyload alt="image-20230407133023066"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218610.png" srcset="/img/loading.gif" lazyload alt="image-20230407133023066"></p>
 <h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><ul>
 <li>并发：宏观上同时运行</li>
 <li>共享：并发进程共同享用资源 </li>
 <li>虚拟：一个物理实体对应多个逻辑</li>
 <li>异步：进程走走停停</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023472.png" srcset="/img/loading.gif" lazyload alt="image-20230407132853257"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218611.png" srcset="/img/loading.gif" lazyload alt="image-20230407132853257"></p>
 <h4 id="os不同时期发展"><a href="#os不同时期发展" class="headerlink" title="os不同时期发展"></a><strong>os不同时期发展</strong></h4><p>​	人工、单道、多道、分时（时间片多用户）、实时</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023473.png" srcset="/img/loading.gif" lazyload alt="image-20230407132654765"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218612.png" srcset="/img/loading.gif" lazyload alt="image-20230407132654765"></p>
 <h4 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h4><p>​	用户接口；联机（cmd）、脱机（程序）、图形化</p>
 <p>​	程序接口：系统调用组成。程序调用相应功能系统调用</p>
 <p>​	大内核（模块集中）、微内核</p>
-<h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023474.png" srcset="/img/loading.gif" lazyload alt="image-20230407133249113"></p>
+<h4 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218614.png" srcset="/img/loading.gif" lazyload alt="image-20230407133249113"></p>
 <h2 id="2-进程"><a href="#2-进程" class="headerlink" title="2.进程"></a>2.进程</h2><p>作业比程序更广泛，包含程序、数据和作业说明书</p>
 <p><strong>程序</strong>是个静态的概念，<strong>进程</strong>是程序的一次执行</p>
 <p><strong>进程</strong>：对并发执行的程序的控制和描述，资源分配调度的基本单位，动态性、并发性、独立性、异步</p>
 <p><strong>拥有资源</strong>（代码段 数据段  IO），<strong>唯一</strong>PCB</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023475.png" srcset="/img/loading.gif" lazyload alt="image-20230407133644813"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218615.png" srcset="/img/loading.gif" lazyload alt="image-20230407133644813"></p>
 <p><strong>状态</strong></p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023476.png" srcset="/img/loading.gif" lazyload alt="image-20210807140817329"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218616.png" srcset="/img/loading.gif" lazyload alt="image-20210807140817329"></p>
 <p><strong>编译</strong></p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023477.png" srcset="/img/loading.gif" lazyload alt="image-20210807141320862"></p>
-<h4 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023478.png" srcset="/img/loading.gif" lazyload alt="image-20230407133959202"></p>
-<h4 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023479.png" srcset="/img/loading.gif" lazyload alt="image-20230407134144875"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218617.png" srcset="/img/loading.gif" lazyload alt="image-20210807141320862"></p>
+<h4 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218618.png" srcset="/img/loading.gif" lazyload alt="image-20230407133959202"></p>
+<h4 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218619.png" srcset="/img/loading.gif" lazyload alt="image-20230407134144875"></p>
 <h4 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h4><p>​	进程：处理机资源最小单位        创建、撤销和切换代价大</p>
 <p>​	线程：处理机调度单位         轻量级进程    TCB          QQ中与不同好友聊天</p>
 <p>​	临界资源与临界区</p>
@@ -377,8 +379,8 @@
 <li>​	中级调度（内存调度）：阻塞程序调入外存，提高利用率和吞吐量     </li>
 <li>​	低级调度（进程调度）：分配<strong>cpu</strong>          （抢占、非抢占）</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023480.png" srcset="/img/loading.gif" lazyload alt="image-20230407134438270"></p>
-<h4 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023481.png" srcset="/img/loading.gif" lazyload alt="image-20230407134721361"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218620.png" srcset="/img/loading.gif" lazyload alt="image-20230407134438270"></p>
+<h4 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218621.png" srcset="/img/loading.gif" lazyload alt="image-20230407134721361"></p>
 <h5 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h5><ul>
 <li>​	先来先服务FCFS</li>
 <li>​	短作业优先SJF</li>
@@ -412,22 +414,22 @@
 <li><strong>解除死锁</strong>（资源剥夺、回滚进程、终止进程）</li>
 </ul>
 <p><strong>银行家</strong></p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023482.png" srcset="/img/loading.gif" lazyload alt="image-20230407100403822"></p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023483.png" srcset="/img/loading.gif" lazyload alt="image-20230407100418486"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218622.png" srcset="/img/loading.gif" lazyload alt="image-20230407100403822"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218623.png" srcset="/img/loading.gif" lazyload alt="image-20230407100418486"></p>
 <p><strong>资源分配图</strong></p>
 <p>去掉所有已经出边（申请了的资源），查看某个进程P是否所有的出边（need）都能满足，能满足则该进程运行，释放所有资源。最后是否能都运行。其实就是判断是否存在<strong>安全序列</strong>。否则就会产生环</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023484.png" srcset="/img/loading.gif" lazyload alt="image-20230407100722191"><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023485.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" /></p>
-<h2 id="3-内存"><a href="#3-内存" class="headerlink" title="3.内存"></a>3.内存</h2><h4 id="内存分配（连续）"><a href="#内存分配（连续）" class="headerlink" title="内存分配（连续）"></a>内存分配（连续）</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023486.png" srcset="/img/loading.gif" lazyload alt="image-20230407103230820"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218624.png" srcset="/img/loading.gif" lazyload alt="image-20230407100722191"><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218625.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" /></p>
+<h2 id="3-内存"><a href="#3-内存" class="headerlink" title="3.内存"></a>3.内存</h2><h4 id="内存分配（连续）"><a href="#内存分配（连续）" class="headerlink" title="内存分配（连续）"></a>内存分配（连续）</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218626.png" srcset="/img/loading.gif" lazyload alt="image-20230407103230820"></p>
 <ul>
 <li><p><strong>单一连续分配</strong>（单程序）</p>
 </li>
 <li><p><strong>固定分区分配</strong>（区域固定但大小不等，一个程序一个区） 分区表维护状态  存在<strong>内部碎片</strong>  不能共享</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023487.png" srcset="/img/loading.gif" lazyload alt="image-20230407101903055" style="zoom:67%;" /><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023488.png" srcset="/img/loading.gif" lazyload alt="image-20230407101958427" style="zoom: 67%;" /></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218627.png" srcset="/img/loading.gif" lazyload alt="image-20230407101903055" style="zoom:67%;" /><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218628.png" srcset="/img/loading.gif" lazyload alt="image-20230407101958427" style="zoom: 67%;" /></p>
 </li>
 <li><p><strong>动态分区分配</strong>（根据进程大小分配，空闲表，空闲区由一个双向指针连接起来），存在<strong>外部碎片</strong>（太小没人用）  回收直接合并前后空闲区</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023489.png" srcset="/img/loading.gif" lazyload alt="image-20230407102352685"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218629.png" srcset="/img/loading.gif" lazyload alt="image-20230407102352685"></p>
 <p>紧凑：各个进程挪位，挪出一个连续空闲区域。把蓝色部分合并</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023490.png" srcset="/img/loading.gif" lazyload alt="image-20230407103058745"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218630.png" srcset="/img/loading.gif" lazyload alt="image-20230407103058745"></p>
 </li>
 </ul>
 <h5 id="顺序方法"><a href="#顺序方法" class="headerlink" title="顺序方法"></a>顺序方法</h5><p>​		首次适应FF：开头开始找到就用   			循环首次适应NF：从上一次开始</p>
@@ -449,7 +451,7 @@
 <p>​	<strong>多级列表</strong>：将页表空间离散，2^20^  &#x3D;  2^10^  * 2^10^</p>
 <p>​		4GB内存空间 每个页4kb，共2^20^条； 每一个条目需要4B 则需要2^20^ * 4 B &#x3D; 4 MB 的页表空间</p>
 <p>​		转为二级后：2^10^ * 4B  + 2^10^ * 2^10^ * 4B  &#x3D; 4KB + 4MB。但二级页表是可以不存在，所以<strong>节约</strong>并且<strong>离散化</strong>了空间</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023491.png" srcset="/img/loading.gif" lazyload alt="image-20230407120032813"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218631.png" srcset="/img/loading.gif" lazyload alt="image-20230407120032813"></p>
 <p>​		</p>
 <h4 id="分段管理"><a href="#分段管理" class="headerlink" title="分段管理"></a>分段管理</h4><p>​	满足编程上要求，主程序、子程序、数据段。需要段表实现虚拟到物理</p>
 <p>​	当用户共享一段内存时，只需要一个段表，而分页需要多个</p>
@@ -460,9 +462,9 @@
 <h4 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h4><p>​	页表中的标志位标记是否在内存中</p>
 <p>​	时间、空间<strong>局部性</strong></p>
 <p>​	作业的页面可能不在内存中，需要从外存调入，产生一个缺页中断</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023492.png" srcset="/img/loading.gif" lazyload alt="image-20230407104638679"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218632.png" srcset="/img/loading.gif" lazyload alt="image-20230407104638679"></p>
 <p>​	分配规则：规定分配局部置换（单程序内换）、可变分配局部置换（一起换）、可变分配局部置换（动态加页）</p>
-<h5 id="置换算法"><a href="#置换算法" class="headerlink" title="置换算法"></a>置换算法</h5><ul>
+<h5 id="置换算法"><a href="#置换算法" class="headerlink" title="置换算法!"></a>置换算法!</h5><ul>
 <li>​	最佳置换算法 （理论算法、无法实现）</li>
 <li>​	先进先出</li>
 <li>​	最久未使用LRU   链表头尾</li>
@@ -476,27 +478,216 @@
 <h4 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h4><p>单级目录、多级目录、树形目录</p>
 <h4 id="磁盘"><a href="#磁盘" class="headerlink" title="磁盘"></a>磁盘</h4><p>连续组织方式</p>
 <p>链接组织方式：隐式（只存首地址，下一个盘块在当前盘块中），显式（全存到FCB中）FAT表 </p>
-<h2 id="5-io"><a href="#5-io" class="headerlink" title="5.io"></a>5.io</h2><h4 id="设备分类"><a href="#设备分类" class="headerlink" title="设备分类"></a>设备分类</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023493.png" srcset="/img/loading.gif" lazyload alt="image-20230407131713071"></p>
-<h4 id="控制方式"><a href="#控制方式" class="headerlink" title="控制方式"></a>控制方式</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023494.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="5-io"><a href="#5-io" class="headerlink" title="5.io"></a>5.io</h2><h4 id="设备分类"><a href="#设备分类" class="headerlink" title="设备分类"></a>设备分类</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218633.png" srcset="/img/loading.gif" lazyload alt="image-20230407131713071"></p>
+<h4 id="控制方式"><a href="#控制方式" class="headerlink" title="控制方式"></a>控制方式</h4><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218634.png" srcset="/img/loading.gif" lazyload></p>
 <h4 id="磁盘-1"><a href="#磁盘-1" class="headerlink" title="磁盘"></a>磁盘</h4><p>​	盘面 磁道 扇区</p>
 <p>寻道+旋转+传输</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023495.png" srcset="/img/loading.gif" lazyload alt="image-20230407131437644"></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218635.png" srcset="/img/loading.gif" lazyload alt="image-20230407131437644"></p>
 <h5 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h5><ul>
 <li>先来先服务FCFS</li>
 <li>最短寻道时间SSTF</li>
 <li>电梯算法：电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。</li>
 <li>CSCAN：单方向电梯</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304102023496.png" srcset="/img/loading.gif" lazyload alt="image-20230407131552116"></p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="进程间通信方式："><a href="#进程间通信方式：" class="headerlink" title="进程间通信方式："></a>进程间通信方式：</h3><p>​	管道  消息队列  信号量 套接字socket</p>
-<h3 id="临界区："><a href="#临界区：" class="headerlink" title="临界区："></a>临界区：</h3><p>​	访问临界资源的片段</p>
-<h3 id="什么是用户态和内核态？"><a href="#什么是用户态和内核态？" class="headerlink" title="什么是用户态和内核态？"></a>什么是用户态和内核态？</h3><p>限制访问能力，防止一些程序访问其它程序的内存数据</p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218636.png" srcset="/img/loading.gif" lazyload alt="image-20230407131552116"></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><strong>1.什么是操作系统？操作系统的主要功能是什么？</strong></p>
+<p>操作系统位于计算机硬件和应用软件之间，负责协调和管理硬件资源的分配、控制和调度，提供对硬件的抽象和访问接口，以便应用程序能够运行并与硬件交互。</p>
+<p>进程管理、内存管理、文件系统、输入输出</p>
+<p><strong>2.请大致描述操作系统的启动过程。</strong></p>
+<p>操作系统的启动过程包括硬件自检、引导加载程序加载、内核初始化、用户空间初始化、用户应用程序加载和运行等阶段。</p>
+<ol>
+<li>上电自检（Power-On Self-Test, POST）：当计算机电源被打开时，计算机硬件会进行自我检测，包括检测内存、CPU、硬盘、显示器等硬件设备，以确保它们正常工作。</li>
+<li>BIOS&#x2F;UEFI初始化：计算机硬件自检完成后，BIOS（基本输入&#x2F;输出系统）或UEFI（统一可扩展固件接口）会被加载并初始化，它们是计算机的固件，负责初始化硬件设备、设置启动选项等。</li>
+<li>引导加载程序（Boot Loader）：BIOS&#x2F;UEFI会从预定义的引导设备（通常是硬盘、光盘或网络）中加载引导加载程序，例如GRUB、LILO等，它负责加载操作系统的核心模块到内存中。</li>
+<li>操作系统内核加载：引导加载程序会加载操作系统的内核模块到内存中，并将控制权交给操作系统的内核。</li>
+<li>内核初始化：操作系统内核被加载后，会进行初始化，包括初始化设备驱动程序、建立进程管理、内存管理、文件系统等子系统。</li>
+<li>用户空间初始化：操作系统内核初始化完成后，会创建一个或多个用户空间的进程，这些进程负责提供用户界面和用户应用程序的运行环境。</li>
+<li>用户应用程序加载：用户空间的进程会加载用户应用程序到内存中，并开始执行用户应用程序。</li>
+<li>用户应用程序运行：用户应用程序开始在操作系统的运行环境下执行，通过系统调用和内核交互来请求操作系统提供的服务和资源。</li>
+</ol>
+<p><strong>3.什么是系统调用？系统调用的作用是什么？</strong></p>
+<p>系统调用（System Call）是操作系统提供给用户态程序访问内核态功能和资源的<strong>接口</strong>。它允许用户态程序通过调用特定的系统调用函数来请求操作系统的服务和资源，例如文件操作、网络通信、进程管理、内存管理等。</p>
+<p>当需要执行系统调用时，用户通过中断或异常从用户态切换到内核态，从而执行系统调用</p>
+<p><strong>4.多道程序设计、分时操作系统、实时操作系统是什么</strong></p>
 <ul>
-<li>用户态：受限地访问内存，且不允许访问外围设备，没有占用CPU的能力，CPU资源可以被其它程序获取；</li>
-<li>内核态：内存所有数据、外围设备，程序的切换。</li>
+<li>多道程序：通过进程之间的相互切换，同时运行多个进程</li>
+<li>分时操作系统：通过时间片轮转实现<strong>多用户多程序</strong>并发执行，用户之间的隔离和资源的共享。</li>
+<li>实时操作系统：用于处理实时任务，硬实时（航空、医疗工业）、软实时</li>
 </ul>
-<p>所有用户程序都运行在用户态，但有时需要进行一些内核态的操作，比如从硬盘或者键盘读数据，这时就需要进行系统调用，使用<strong>陷阱指令</strong>，CPU切换到内核态，执行相应的服务，再切换为用户态并返回系统调用的结果。</p>
-<h3 id="什么是虚拟内存？"><a href="#什么是虚拟内存？" class="headerlink" title="什么是虚拟内存？"></a>什么是虚拟内存？</h3><p>程序地址页并非都在内存中，需要再装入。所以实际上有一部分是存储在磁盘上，因此叫做虚拟内存。</p>
+<p><strong>5.什么是中断？如何工作？</strong></p>
+<p>中断（Interrupt）是计算机系统中的一种事件，暂停当前指令，转向执行特定的中断程序</p>
+<p>过程：</p>
+<ol>
+<li>中断请求(外部IO、定时器、出现错误) </li>
+<li>暂停当前保留进程现场 </li>
+<li>根据中断向量表定位中断处理程序入口，移交控制权  </li>
+<li>执行中断处理程序，清除中断标志位</li>
+<li>恢复现场，继续执行原来程序</li>
+</ol>
+<p>作用：中断的存在使得程序支持多任务处理、提高响应，控制硬件设备</p>
+<p><strong>6.什么是守护进程（Daemon Process），它在操作系统中的作用是什么？</strong></p>
+<p>守护进程是一种一直在后台运行的特殊类型的进程，用于提供服务和执行系统管理任务。维护系统的正常运行</p>
+<hr>
+<h3 id="进程-1"><a href="#进程-1" class="headerlink" title="进程"></a>进程</h3><p><strong>7.什么是进程控制块（PCB）？其主要作用是什么？</strong></p>
+<p>CB保存了进程的基本信息，如进程ID（PID）、进程状态（如就绪、运行、阻塞等）、进程优先级、内存指针、CPU寄存器内容、进程的内存分配信息等，用于对进程进行管理和控制。</p>
+<p><strong>8.操作系统中进程和线程的区别</strong></p>
+<p>进程是指在操作系统中正在运行的一个程序的实例，它包括了程序的代码、数据和运行时的资源。每个进程都有独立的内存空间和系统资源，例如文件句柄、网络连接等。进程之间相互隔离，彼此独立运行，互不干扰。进程之间通过进程间通信（IPC）机制来进行数据交换和通信。</p>
+<p>而线程是进程内的一个独立执行流，也是程序执行的最小单元。同一进程中的多个线程共享进程的内存空间和系统资源，包括文件句柄、网络连接等。线程之间可以通过共享内存来进行通信，因此线程间的通信更加高效。线程的切换开销较小，因此线程可以更快地响应用户请求。</p>
+<p>总结：进程是独立的程序执行实体，拥有独立的内存空间和系统资源；而线程是进程内的执行流，共享进程的内存空间和系统资源，可以更快地进行通信和切换。</p>
+<p>进程：独立、稳定；线程：资源共享(需要手动实现互斥)、响应快</p>
+<p><strong>9.什么是进程通信？进程通信的方式有哪些？</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">通信方式</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+<th align="left">应用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">管道</td>
+<td align="left">简单易用，无需考虑同步问题。半双工，如果空了或者满了就会阻塞</td>
+<td align="left">只能用于具有亲缘关系的进程间通信</td>
+<td align="left">父子进程间通信</td>
+</tr>
+<tr>
+<td align="left">信号</td>
+<td align="left">传递简单信息，可靠性高，响应速度快。一个进程可以发送一个信号给另一个进程</td>
+<td align="left">只能传递整数值，不能传递复杂数据结构</td>
+<td align="left">进程间异步通信</td>
+</tr>
+<tr>
+<td align="left">信号量</td>
+<td align="left">一个计数器，可以用于同步和互斥，可靠性高</td>
+<td align="left">只能用于具有亲缘关系的进程间通信</td>
+<td align="left">进程间同步和互斥</td>
+</tr>
+<tr>
+<td align="left">消息队列</td>
+<td align="left">可以传递复杂数据结构，可靠性高，支持多对多通信</td>
+<td align="left">性能较差，需要内核支持</td>
+<td align="left">进程间异步通信</td>
+</tr>
+<tr>
+<td align="left">共享内存</td>
+<td align="left">传输速度快，可以直接访问共享内存区域，支持多对多通信</td>
+<td align="left">需要考虑同步和互斥问题，可能会出现死锁等问题</td>
+<td align="left">进程间大量数据交换</td>
+</tr>
+<tr>
+<td align="left">套接字</td>
+<td align="left">网络通信，支持不同主机之间的进程通信，支持多种协议和数据格式</td>
+<td align="left">实现较为复杂，性能较差</td>
+<td align="left">不同主机之间的进程通信</td>
+</tr>
+</tbody></table>
+<p><strong>10.细说信号量：</strong></p>
+<p>信号量可以解决资源间的共享和同步问题</p>
+<p>资源共享：</p>
+<p>​	S表示资源数目，当多个资源时，AND机制</p>
+<p>​	wait：  s–     if s &lt; 0，线程加入等待队列  </p>
+<p>​	signal：s++  if  s&lt;&#x3D;0, 唤醒等待队列</p>
+<p>生产者消费者：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 定义两个信号量，用于控制缓冲区的空闲空间和数据项数量</span><br><span class="hljs-type">Semaphore</span> <span class="hljs-variable">semEmpty</span> <span class="hljs-operator">=</span> n; <span class="hljs-comment">// 初始值为缓冲区的大小，表示空闲空间的数量</span><br><span class="hljs-type">Semaphore</span> <span class="hljs-variable">semFull</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-comment">// 初始值为 0，表示数据项的数量</span><br><br><span class="hljs-comment">// 生产者进程</span><br><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-comment">// 生成一个数据项</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-comment">// 等待空闲空间，如果没有空闲空间则阻塞</span><br>    wait(semEmpty);<br>    <span class="hljs-comment">// 将数据项放入缓冲区</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-comment">// 增加数据项数量</span><br>    signal(semFull);<br>&#125;<br><br><span class="hljs-comment">// 消费者进程</span><br><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-comment">// 等待数据项，如果没有数据项则阻塞</span><br>    wait(semFull);<br>    <span class="hljs-comment">// 从缓冲区取出一个数据项</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-comment">// 增加空闲空间数量</span><br>    signal(semEmpty);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>11.为什么操作系统需要进行进程调度，有哪些常见的进程调度算法？</strong></p>
+<p>为了充分利用 CPU 资源</p>
+<ul>
+<li><p>先来先服务（First-Come, First-Served, FCFS）：按照进程到达的先后顺序进行调度，即先到达的进程先被执行。</p>
+</li>
+<li><p>最短作业优先（Shortest Job Next, SJN）：选择下一个执行的进程时，选择估计运行时间最短的进程。</p>
+</li>
+<li><p>优先级调度（Priority Scheduling）：为每个进程分配一个优先级，优先级高的进程优先被调度执行。</p>
+</li>
+<li><p>时间片轮转法（Round Robin, RR）：每个进程被分配一个固定的时间片（时间量），当时间片用完时，进程被挂起，下一个进程开始执行，被挂起的进程排队等待下一轮调度。</p>
+</li>
+<li><p>高响应比：1 + 等待时间&#x2F;服务时间  </p>
+</li>
+<li><p>多级反馈队列调度（Multilevel Feedback Queue Scheduling）：多级队列，优先级高的时间短，进程在规定时间未完成则降到下一级</p>
+</li>
+<li><p>实时：</p>
+<ul>
+<li>​	最早截止EDF（抢占、非抢占）</li>
+<li>​	最低松弛度优先LLF（不得不开始时抢占CPU）</li>
+</ul>
+</li>
+</ul>
+<p><strong>12.什么是死锁？如何避免和检测死锁？</strong></p>
+<p>各个进程或线程因争夺系统资源（如共享资源）而导致相互等待</p>
+<p>互斥条件 请求与保持条件 不可剥夺条件 循环等待条件</p>
+<p>​	<strong>处理方法</strong>：</p>
+<ul>
+<li><strong>预防死锁</strong>（一次性分配资源、允许抢占）</li>
+<li><strong>避免死锁</strong>（银行家：在一次分配完后检查是否有安全序列能实现全部运行）</li>
+<li><strong>监测死锁</strong>（资源分配图，分配完有没有环）</li>
+<li><strong>解除死锁</strong>（资源剥夺、回滚进程、终止进程）</li>
+</ul>
+<h3 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h3><p><strong>13.内存管理的几个阶段？</strong></p>
+<ul>
+<li><strong>单一连续分配</strong>（单程序）</li>
+<li><strong>固定分区分配</strong>（区域固定但大小不等，一个程序一个区） 分区表维护状态  存在<strong>内部碎片</strong>  不能共享</li>
+<li><strong>动态分区分配</strong>（根据进程大小分配，空闲表，空闲区由一个双向指针连接起来），存在<strong>外部碎片</strong>（太小没人用）  回收直接合并前后空闲区</li>
+<li><strong>分页管理</strong>（离散）  1页1~8KB</li>
+<li><strong>分段管理</strong>  逻辑上</li>
+</ul>
+<p><strong>14.二级分页管理中，如何实现逻辑地址到物理地址的映射</strong></p>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218637.png" srcset="/img/loading.gif" lazyload alt="image-20230411175730569"></p>
+<p><strong>15.什么是虚拟内存，概念及其实现原理，虚拟内存与物理内存的映射是怎么实现的？</strong></p>
+<p>概念：</p>
+<ul>
+<li>虚拟内存：每个进程拥有自己的虚拟地址空间，包括代码段、数据段和堆栈段等，进程访问的地址都是虚拟地址，由进程的逻辑地址空间组成。</li>
+<li>物理内存：实际的物理内存模块，用于存储正在执行的进程的数据和指令。</li>
+</ul>
+<p>实现原理：</p>
+<ul>
+<li>分页机制：将进程的虚拟地址空间划分为固定大小的页，同时将物理内存划分为对应大小的页框。每个页框可以存放一个页的数据或指令。</li>
+<li>页表映射：每个进程都有自己的页表，用于记录其虚拟地址空间中每个页与物理内存中页框的映射关系。通过页表，操作系统可以实现虚拟地址到物理地址的映射。</li>
+<li>页面置换：当物理内存不足以容纳所有进程所需的页时，操作系统会使用页面置换算法，将一些不活跃的页面置换到磁盘上，从而释放物理内存空间，用于加载其他进程的页面。</li>
+<li>页面调度：当发生缺页时，抛出缺页中断，操作系统根据进程的访问模式和页的访问频率等信息，通过页面置换算法来决定将哪些页面调入物理内存，从而提高系统的性能。</li>
+</ul>
+<p><strong>16.操作系统中的页面置换算法有哪些</strong></p>
+<ul>
+<li>​	最佳置换算法 （理论算法、无法实现）</li>
+<li>​	先进先出</li>
+<li>​	最久未使用LRU   链表头尾</li>
+<li>​	最少使用LFU（页面访问表 +1）   </li>
+<li>​    Clock算法  （第一次置为零不换出，第二次&#x3D;0则 换出）</li>
+</ul>
+<h3 id="文件IO"><a href="#文件IO" class="headerlink" title="文件IO"></a>文件IO</h3><p><strong>17.文件系统是什么？请讲解文件系统的常见类型及其特点</strong></p>
+<p>文件系统是操作系统中负责管理和组织文件的一部分，它提供了一种逻辑结构，用于在存储介质（如硬盘、闪存等）上存储和组织文件，以便用户可以方便地创建、读取、写入、删除、移动、复制和管理文件。</p>
+<p><strong>18.什么是磁盘调度算法？常见的磁盘调度算法有哪些？</strong></p>
+<ul>
+<li>先来先服务FCFS</li>
+<li>最短寻道时间SSTF</li>
+<li>电梯算法：电梯总是保持一个方向运行，直到该方向没有请求为止，然后改变运行方向。</li>
+<li>CSCAN：单方向电梯</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202304191218636.png" srcset="/img/loading.gif" lazyload alt="image-20230407131552116"></p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p><strong>19.请解释什么是死机和蓝屏，并解释它们在操作系统中的原因和处理方法。</strong></p>
+<ul>
+<li>死机：死机是指计算机在运行时突然停止响应，无法继续执行任何操作，屏幕上的图像和界面也无法更新。死机可能是由于<strong>软件或硬件</strong>故障引起的，例如程序错误、设备驱动问题、内存错误等。死机时，屏幕上的内容通常会被冻结在当前状态，无法进行任何操作。</li>
+<li>蓝屏：蓝屏是指在Windows操作系统中出现严重错误时，屏幕会显示蓝色的错误信息界面，通常包含错误代码和错误信息。蓝屏通常由于<strong>操作系统的关键组件</strong>出现故障或冲突引起，例如驱动程序问题、硬件故障、系统文件损坏等。蓝屏时，计算机会自动崩溃并重启，屏幕上会显示蓝屏错误信息。</li>
+</ul>
+<p>死机无提示信息，而蓝屏有；死机会冻结在当且页面，蓝屏会自动崩溃并重启；</p>
+<p><strong>20.介绍下常见的操作系统</strong></p>
+<p>常见的操作系统类型包括Windows、Linux和macOS。</p>
+<ol>
+<li>Windows：Windows是由微软公司开发的操作系统，广泛应用于个人计算机和企业环境。Windows操作系统以图形用户界面（GUI）为特点，提供了丰富的应用程序生态系统和广泛的硬件兼容性。Windows操作系统版本众多，包括Windows 10、Windows 8、Windows 7等，每个版本都有不同的特点和功能。</li>
+<li>Linux：Linux是一种自由和开放源代码的操作系统，基于UNIX的设计原则和哲学。Linux操作系统以稳定、安全和高度可定制性为特点，被广泛用于服务器、嵌入式系统、移动设备和超级计算机等领域。Linux有众多的发行版，如Ubuntu、CentOS、Debian等，每个发行版有其独特的特点和用途。</li>
+<li>macOS：macOS是由苹果公司开发的操作系统，专门设计用于苹果的Mac计算机。macOS以稳定、安全和用户友好的界面为特点，与苹果的硬件和软件紧密集成，提供了独特的用户体验和生产力工具。macOS有多个版本，如macOS Monterey、Big Sur、Catalina等，每个版本都有新的功能和改进。</li>
+</ol>
+<p>这些操作系统之间的主要区别包括：</p>
+<ul>
+<li>用户界面：Windows以图形用户界面（GUI）为主，macOS也是如此，而Linux则可以有多种用户界面选择，例如GNOME、KDE、XFCE等。</li>
+<li>开放性：Linux是自由和开放源代码的操作系统，可以自由定制和修改，而Windows和macOS都是商业操作系统，不开放源代码。</li>
+<li>应用程序生态系统：Windows和macOS拥有丰富的商业软件和应用程序生态系统，而Linux则以开源软件为主，应用程序生态系统相对较小。</li>
+<li>硬件兼容性：Windows通常具有广泛的硬件兼容性，因为它是市场份额最大的操作系统之一，而macOS只能在苹果硬件上运行，Linux的硬件兼容性则因发行版和驱动支持而异。</li>
+<li>安全性：Linux和macOS在安全性方面通常被认为较高，因为它们基于UNIX的安全设计原则，而Windows在过去一直面临着安全威胁和攻击的挑战。</li>
+<li>社区支持：Linux拥有庞大的开源社区和支持系统，而Windows和macOS则主要依赖于厂商的官方支持。</li>
+</ul>
 
                 
               </div>
