@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240319124145733.png">
 <meta property="article:published_time" content="2023-12-15T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-26T07:11:11.483Z">
+<meta property="article:modified_time" content="2024-03-26T07:24:49.782Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="文章精读">
 <meta name="twitter:card" content="summary_large_image">
@@ -321,7 +321,7 @@
 <li>卖家超时未发货</li>
 <li>买家超时自动收货</li>
 </ul>
-<h2 id="JDK自带DelayQueue"><a href="#JDK自带DelayQueue" class="headerlink" title="JDK自带DelayQueue"></a>JDK自带DelayQueue</h2><h3 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h3><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240319124145733.png" srcset="/img/loading.gif" lazyload alt="image-20240319124145733"></p>
+<h2 id="JDK自带DelayQueue"><a href="#JDK自带DelayQueue" class="headerlink" title="JDK自带DelayQueue"></a>JDK自带DelayQueue</h2><h3 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h3><p><img src="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240319124145733.png" srcset="/img/loading.gif" lazyload alt="image-20240319124145733"></p>
 <ol>
 <li>把订单插入DelayQueue中，以超时时间作为排序条件，将订单按照超时时间从小到大排序。</li>
 <li>起一个线程不停轮询队列的头部，如果订单的超时时间到了，就出队进行超时处理，并更新订单状态到数据库中。</li>
@@ -356,7 +356,7 @@
 <li>RabbitMQ Delayed Message Plugin（非高可用）</li>
 <li>消息的TTL+死信Exchange</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240319124838271.png" srcset="/img/loading.gif" lazyload alt="image-20240319124838271"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240319124838271.png" srcset="/img/loading.gif" lazyload alt="image-20240319124838271"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240326121154965.png" srcset="/img/loading.gif" lazyload alt="image-20240326121154965"></p>
 <ol>
 <li>定义一个BizQueue，用来接收死信消息，并进行业务消费。</li>
@@ -376,7 +376,7 @@
 </li>
 <li></li>
 </ul>
-<h2 id="RocketMQ的定时消息"><a href="#RocketMQ的定时消息" class="headerlink" title="RocketMQ的定时消息"></a>RocketMQ的定时消息</h2><h3 id="时间轮算法"><a href="#时间轮算法" class="headerlink" title="时间轮算法"></a>时间轮算法</h3><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240319130800851.png" srcset="/img/loading.gif" lazyload alt="image-20240319130800851"></p>
+<h2 id="RocketMQ的定时消息"><a href="#RocketMQ的定时消息" class="headerlink" title="RocketMQ的定时消息"></a>RocketMQ的定时消息</h2><h3 id="时间轮算法"><a href="#时间轮算法" class="headerlink" title="时间轮算法"></a>时间轮算法</h3><p><img src="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240319130800851.png" srcset="/img/loading.gif" lazyload alt="image-20240319130800851"></p>
 <p>指针代表当前时刻，slot上有每个时刻上等待的任务，链表串起来</p>
 <ul>
 <li>时间转一下代表过去1s</li>
@@ -384,7 +384,7 @@
 <li>新消息到达 Slot&#x3D;(curTime + delay) mod total_slot，round &#x3D; (curTime + delay) &#x2F; total_slot</li>
 </ul>
 <h3 id="延时最大限制"><a href="#延时最大限制" class="headerlink" title="延时最大限制"></a>延时最大限制</h3><p>定时时长最大值24小时，使用循环处理实现大延时</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240319131311872.png" srcset="/img/loading.gif" lazyload alt="image-20240319131311872"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240319131311872.png" srcset="/img/loading.gif" lazyload alt="image-20240319131311872"></p>
 <ul>
 <li><p>优点</p>
 </li>
@@ -411,14 +411,14 @@
 
 
 <p><strong>问题：</strong>redis的key是惰性删除+定期删除，延时不正确</p>
-<h2 id="定时任务分布式批处理"><a href="#定时任务分布式批处理" class="headerlink" title="定时任务分布式批处理"></a>定时任务分布式批处理</h2><p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240319135208503.png" srcset="/img/loading.gif" lazyload alt="image-20240319135208503"></p>
+<h2 id="定时任务分布式批处理"><a href="#定时任务分布式批处理" class="headerlink" title="定时任务分布式批处理"></a>定时任务分布式批处理</h2><p><img src="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240319135208503.png" srcset="/img/loading.gif" lazyload alt="image-20240319135208503"></p>
 <ul>
 <li>稳定性强：没有引入额外中间件</li>
 <li>效率高：批处理</li>
 </ul>
 <p>但是使用<strong>定时任务</strong>有个天然的<strong>缺点</strong>：没法做到精度很高。定时任务的延迟时间，由定时任务的调度周期决定。如果把频率设置很小，就会导致数据库的qps比较高，容易造成数据库压力过大，从而影响线上的正常业务。</p>
 <p>所以一般需要抽离出超时中心和超时库来单独做订单的超时调度，在阿里内部，几乎所有的业务都使用<strong>基于定时任务分布式批处理的超时中心来做订单超时处理</strong>，SLA可以做到30秒以内：</p>
-<p><img src="https://raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240319135535171.png" srcset="/img/loading.gif" lazyload alt="image-20240319135535171"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/goinggoinggoing/image/blogimg/image-20240319135535171.png" srcset="/img/loading.gif" lazyload alt="image-20240319135535171"></p>
 
                 
               </div>
