@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202303221903367.png">
 <meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202303221903368.png">
 <meta property="article:published_time" content="2023-03-20T12:33:46.000Z">
-<meta property="article:modified_time" content="2024-03-27T09:19:04.308Z">
+<meta property="article:modified_time" content="2024-03-28T07:43:58.645Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="java项目">
 <meta name="twitter:card" content="summary_large_image">
@@ -242,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          14k 字
         
       </span>
     
@@ -253,7 +253,7 @@
         
         
         
-          112 分钟
+          115 分钟
         
       </span>
     
@@ -317,19 +317,41 @@
             
               <div class="markdown-body">
                 
-                <h1 id="B站秒杀项目"><a href="#B站秒杀项目" class="headerlink" title="B站秒杀项目"></a>B站秒杀项目</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sf4y1L7KE">视频</a></p>
-<ul>
-<li>前后端结合项目，两种处理页面方式，二者对比可以看orderDetail页面</li>
-<li>前端页面在template下，通过controller返回访问，并<code>model.add添加数据</code>。<code>h:text=&quot;$&#123;goods.goodsName&#125;&quot;</code>区数据， 不可直接访问</li>
-<li>在static下的页面可直接访问，并在页面加载时ajax请求返回json数据，<code>$(&quot;#goodsName&quot;).text(goods.goodsName);</code>根据id注入数据。（代码中的方式，相当于静态化了，视频中一开始是上面的方式，后面才做的静态化）</li>
+                <h1 id="B站秒杀项目"><a href="#B站秒杀项目" class="headerlink" title="B站秒杀项目"></a>B站秒杀项目</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sf4y1L7KE">视频地址</a></li>
+<li>代码：<a target="_blank" rel="noopener" href="https://github.com/Goinggoinggoing/seckill-study">https://github.com/Goinggoinggoing/seckill-study</a></li>
+<li>项目来源：程序员来了666 <a target="_blank" rel="noopener" href="https://gitee.com/guizhizhe/seckill_demo">https://gitee.com/guizhizhe/seckill_demo</a> ， 添加了一些中间过程接口以及注释</li>
 </ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>一个简单的秒杀项目，并不断的优化</p>
+<ol>
+<li><p>在该项目中核心就是秒杀的实现：不能超卖、不能重复抢</p>
+<ul>
+<li>不能超卖在doSeckill1中通过update的排他性实现(乐观锁)。而在doSeckill2中通过redis预减库存(redis的原子性实现)</li>
+<li>不能重复抢通过唯一索引实现，默认建表时没有添加，压测可以把用户加少点商品多一点就可以复现重复购买</li>
+</ul>
+</li>
+<li><p>优化不过就是把数据库的重复访问，能放到redis就放到redis；而如果访问redis太多了就再加一层内存标记</p>
+</li>
+<li><p>redis和mysql要么都在远程，要么都在本地，否则可能会出现redis缓存优化了但QPS没提升</p>
+</li>
+</ol>
 <p>秒杀的接口有三个，先在goodsdetail中启用doSeckill1</p>
-<ul>
-<li>doSeckill1:  对应到 <strong>P43</strong>，         update排他+唯一索引实现秒杀(没有做order页面静态化)</li>
-<li>doSeckill2：对应到 <strong>P53</strong>，         order界面静态化 +  redis预减库存 + 内存标记 + MQ</li>
-<li>doSeckill ：最终秒杀方案          一些安全上的优化</li>
-</ul>
+<ol>
+<li><p>doSeckill1:  对应到 <strong>P43</strong>，update排他+唯一索引实现秒杀(没有做order页面静态化)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 到这里为了实现不超卖（减少库存的同时判断库存数量）且单一下单（唯一索引）</span><br><span class="hljs-type">boolean</span> <span class="hljs-variable">seckillGoodsResult</span> <span class="hljs-operator">=</span> itSeckillGoodsService.update(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UpdateWrapper</span>&lt;TSeckillGoods&gt;()<br>        .setSql(<span class="hljs-string">&quot;stock_count = &quot;</span> + <span class="hljs-string">&quot;stock_count-1&quot;</span>)<br>        .eq(<span class="hljs-string">&quot;goods_id&quot;</span>, goodsVo.getId())<br>        .gt(<span class="hljs-string">&quot;stock_count&quot;</span>, <span class="hljs-number">0</span>)  <span class="hljs-comment">//大于零才下单</span><br>);<br><span class="hljs-comment">// 防超卖，直接结束，很关键</span><br><span class="hljs-keyword">if</span> (!seckillGoodsResult) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;  <span class="hljs-comment">// 否则下单事务直接结束。update是排他锁，一定不会超卖</span><br>&#125;<br><br><span class="hljs-comment">// 同时做了一些优化： 下单后存入redis，加快是否重复下单判断。</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>doSeckill2：对应到 <strong>P53</strong>，         order界面静态化 +  redis预减库存 + 内存标记 + MQ</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs">0.页面静态化（在前后端分离项目里默认就做了）<br>1.用redis预减库存（减少数据库访问），redis是原子操作，可以防止超卖；<br>2.满足还有库存后进入MQ队列；  <br>3.我还想减少redis访问次数：引入内存标记。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>doSeckill ：最终秒杀方案          一些安全上的优化</p>
+</li>
+</ol>
 <p>对应到发起请求界面static\goodsDetail.html 52~67行</p>
+<p>前后端结合项目，两种处理页面方式，二者对比可以看orderDetail页面</p>
+<ol>
+<li>前端页面在template下，通过controller返回访问，并<code>model.add添加数据</code>。<code>h:text=&quot;$&#123;goods.goodsName&#125;&quot;</code>页面取出数据， 不可直接访问页面</li>
+<li>在static下的页面可直接访问，并在页面加载时ajax请求返回json数据，<code>$(&quot;#goodsName&quot;).text(goods.goodsName);</code>根据id注入数据。（代码中的方式，相当于静态化了，视频中一开始是上面的方式，后面才做的静态化）</li>
+</ol>
 <h2 id="视频内容"><a href="#视频内容" class="headerlink" title="视频内容"></a>视频内容</h2><ol>
 <li>项目框架搭建<ol>
 <li>SpringBoot环境搭建</li>
@@ -675,10 +697,6 @@
 <li>优化 页面、对象</li>
 <li>进一步优化Redis预减、内存标记、MQ</li>
 </ul>
-<p>笔记：<a target="_blank" rel="noopener" href="https://goinggoinggoing.github.io/2023/03/20/B%E7%AB%99%E7%A7%92%E6%9D%80%E9%A1%B9%E7%9B%AE">https://goinggoinggoing.github.io/2023/03/20/B站秒杀项目</a><br>项目地址：<a target="_blank" rel="noopener" href="https://github.com/Goinggoinggoing/seckill-study">https://github.com/Goinggoinggoing/seckill-study</a><br>项目来源：程序员来了666， 添加了一些中间过程接口以及注释<br>总结一下，分为三部分<br>第一个部分为基础的实现P43：到这里为了实现不超卖（减少库存的同时判断库存数量）且单一下单（唯一索引）：</p>
-<p>boolean seckillGoodsResult &#x3D; itSeckillGoodsService.update(new UpdateWrapper<TSeckillGoods>()<br>        .setSql(“stock_count &#x3D; “ + “stock_count-1”)<br>        .eq(“goods_id”, goodsVo.getId())<br>        .gt(“stock_count”, 0)  &#x2F;&#x2F;大于零才下单<br>);<br>&#x2F;&#x2F; 防超卖，直接结束，很关键<br>if (!seckillGoodsResult) {<br>    return null;  &#x2F;&#x2F; 否则下单事务直接结束。update是排他锁，一定不会超卖<br>}<br>同时做了一些优化：页面静态化在前后端分离里默认就做了；下单后存入redis，加快是否重复下单判断。：</p>
-<p>第二部分为进一步优化：1.用redis预减库存（减少数据库访问），redis是原子操作，可以防止超卖；2.满足还有库存后进入MQ队列；  3.我还想减少redis访问次数：引入内存标记。</p>
-<p>第三部分为其他优化，比较清晰自己看即可</p>
 
                 
               </div>
