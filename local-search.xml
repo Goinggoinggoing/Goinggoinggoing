@@ -439,38 +439,9 @@
   
   
   <entry>
-    <title>测试加密1</title>
-    <link href="/2023/05/17/%E6%B5%8B%E8%AF%95%E5%8A%A0%E5%AF%861/"/>
-    <url>/2023/05/17/%E6%B5%8B%E8%AF%95%E5%8A%A0%E5%AF%861/</url>
-    
-    <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="c5b98f699b8cf1d182d37d999402c4173783c8bae609f8d33b3abe975a79fb8c">10d79030e8222445804370796b90fca1af3488aaccb319d5e208d2c4734b307cf152d06795f7c3f16ed95ecfcafb3c27</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-xray">      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">您好, 这里需要密码.</span>      </label>      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>      </svg>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-    
-    
-    <categories>
-      
-      <category>生活</category>
-      
-      <category>旅行</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>旅行</tag>
-      
-      <tag>加密</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>测试加密2</title>
-    <link href="/2023/05/17/travel/%E6%B5%8B%E8%AF%95%E5%8A%A0%E5%AF%862/"/>
-    <url>/2023/05/17/travel/%E6%B5%8B%E8%AF%95%E5%8A%A0%E5%AF%862/</url>
+    <link href="/2023/05/17/life/%E6%B5%8B%E8%AF%95%E5%8A%A0%E5%AF%862/"/>
+    <url>/2023/05/17/life/%E6%B5%8B%E8%AF%95%E5%8A%A0%E5%AF%862/</url>
     
     <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="c2302d80b35ab267051d05a12546bf313748ad5274daba62dc46532f2d385589">60a9cd2c7098b2a60c0acf9a8bfd06a714456ae670593c405ef19e415e180290</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-xray">      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">您好, 这里需要密码.</span>      </label>      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>      </svg>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
     
