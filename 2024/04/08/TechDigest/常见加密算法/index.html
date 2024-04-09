@@ -19,13 +19,13 @@
     <meta name="description" content="GPT摘要 文章主要介绍了非可逆加密算法和可逆加密算法的原理和应用。在非可逆加密算法部分，介绍了MD5和SHA系列算法，以及它们在密码保存、文件完整性校验等方面的应用。同时提到了MAC和HMAC-SHA-256在确认消息完整性和身份认证中的作用。在可逆加密算法部分，介绍了凯撒密码和enigma机的原理，以及对称加密算法AES和非对称加密算法RSA的基本原理和应用场景。文章还简要讨论了密码攻击方法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见加密算法">
-<meta property="og:url" content="http://example.com/2024/04/08/%E5%B8%B8%E8%A7%81%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:url" content="http://example.com/2024/04/08/TechDigest/%E5%B8%B8%E8%A7%81%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="Xun&#39;s Blog">
 <meta property="og:description" content="GPT摘要 文章主要介绍了非可逆加密算法和可逆加密算法的原理和应用。在非可逆加密算法部分，介绍了MD5和SHA系列算法，以及它们在密码保存、文件完整性校验等方面的应用。同时提到了MAC和HMAC-SHA-256在确认消息完整性和身份认证中的作用。在可逆加密算法部分，介绍了凯撒密码和enigma机的原理，以及对称加密算法AES和非对称加密算法RSA的基本原理和应用场景。文章还简要讨论了密码攻击方法">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404082201658.png">
 <meta property="article:published_time" content="2024-04-08T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-08T14:59:58.774Z">
+<meta property="article:modified_time" content="2024-04-09T03:19:00.394Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="计算机网络">
 <meta property="article:tag" content="加密">
@@ -240,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k 字
+          4.9k 字
         
       </span>
     
@@ -251,7 +251,7 @@
         
         
         
-          40 分钟
+          41 分钟
         
       </span>
     
@@ -340,8 +340,16 @@
 </li>
 </ul>
 <p>可逆加密是从传统意义上的加密，而非可逆加密通常用于签名</p>
-<h2 id="非可逆加密算法"><a href="#非可逆加密算法" class="headerlink" title="非可逆加密算法"></a>非可逆加密算法</h2><p>并不是真正意义上的加密，通常被称作hash算法或者摘要digest算法</p>
-<p>主要用一个较短的字符串（<strong>数字指纹</strong>）代表原来的信息，<strong>不可逆</strong></p>
+<h2 id="非可逆加密算法"><a href="#非可逆加密算法" class="headerlink" title="非可逆加密算法"></a>非可逆加密算法</h2><ul>
+<li><p>并不是真正意义上的加密，通常被称作hash算法（加密）或者摘要digest算法</p>
+<ul>
+<li><strong>非加密哈希函数</strong>：用于散列（Hash）数据，速度快；hash表、长链转短链：<code>MurmurHash</code></li>
+<li><strong>加密哈希函数</strong>：并具有一些特性，如<strong>抗碰撞性</strong>（即难以找到两个不同的输入，它们的哈希值相同）、困难性（难以计算出满足特定条件的输入，例如找到一个特定哈希值的输入），以及提供杂凑（Hash）的伪随机性。</li>
+</ul>
+</li>
+<li><p>主要用一个较短的字符串（<strong>数字指纹</strong>）代表原来的信息，<strong>不可逆</strong></p>
+</li>
+</ul>
 <p>密码保存、文件<strong>完整性</strong>正确性校验、文件秒上传（该文件MD5存在，说明大概率上传过）</p>
 <h3 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h3><p>将任意长度消息  转为  32个16进制数（16B），4个幻数  （信息是减少的，不可逆）</p>
 <ol>
