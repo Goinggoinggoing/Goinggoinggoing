@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404092210932.jpg">
 <meta property="article:published_time" content="2024-04-09T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-09T14:15:34.806Z">
+<meta property="article:modified_time" content="2024-04-10T02:35:03.030Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="文章精读">
 <meta property="article:tag" content="计算机网络">
@@ -252,7 +252,7 @@
         
         
         
-          130 分钟
+          133 分钟
         
       </span>
     
@@ -538,9 +538,20 @@
 <p>在回调函数<code>ep_poll_callback</code>中，根据<code>struct eppoll_entry</code>中的<code>struct wait_queue_t wait</code>通过<code>container_of宏</code>找到<code>eppoll_entry</code>对象并通过它的<code>base</code>指针找到封装<code>socket</code>的数据结构<code>struct epitem</code>，并将它加入到<code>epoll</code>中的就绪队列<code>rdllist</code>中。</p>
 <p>随后查看<code>epoll</code>中的等待队列中是否有等待项，也就是说查看是否有进程阻塞在<code>epoll_wait</code>上等待<code>IO就绪</code>的<code>socket</code>。如果没有等待项，则软<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E4%B8%AD%E6%96%AD%E5%A4%84%E7%90%86&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:%222535104311%22%7D">中断处理</a>完成</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
-<li>在阻塞io中，如果数据没有就绪，创建<code>wait_queue_t</code>{当前线程、唤醒的回调}加入到<code>socket-&gt;sock-&gt;sk_wq</code>，在就绪时会调用回调唤醒该线程</li>
-<li>在epoll中，创建了一个epoll同时对象管理多个socket，epoll对象也是文件，也包含<code>wq</code>，记录着所有<strong>epoll_wait</strong>等待的线程以及<code>default_wake_function</code>；</li>
-<li>epoll对象使用红黑树管理全部socket，<code>rdllist</code>为就序列表，当添加一个socket时<ol>
+<li><p><code>sk_wq</code>是<code>sock</code>结构中的一个重要部分，表示的是socket等待队列。代表着有哪些对象（线程读、epoll_ctl）关注着当前的socket，当前socket可读或可写时，就要通知wq上的对象，通知的方法挂载时设置的回调函数</p>
+<p><code>sk_wq</code>主要用于以下几种情形：</p>
+<ul>
+<li><strong>发送操作时的阻塞管理</strong>：当发送缓冲区不够用时，试图发送数据的进程将会被放入等待队列</li>
+<li><strong>接收操作时的阻塞管理</strong>：当接收缓冲区没有数据时，试图读取数据的进程将会被放入等待队列</li>
+<li><strong>异步IO和事件通知</strong>：<code>sk_wq</code>也与异步IO操作和某些类型的事件通知机制（如<code>epoll</code>）相关，使得应用程序能够有效地等待多个IO事件。</li>
+</ul>
+</li>
+<li><p>在阻塞io中，如果数据没有就绪，创建<code>wait_queue_t</code>{当前线程、唤醒的回调}加入到<code>socket-&gt;sock-&gt;sk_wq</code>，在就绪时会调用回调唤醒该线程</p>
+</li>
+<li><p>在epoll中，创建了一个epoll同时对象管理多个socket，epoll对象也是文件，也包含<code>wq</code>，记录着所有<strong>epoll_wait</strong>等待的线程以及<code>default_wake_function</code>；</p>
+</li>
+<li><p>epoll对象使用红黑树管理全部socket，<code>rdllist</code>为就序列表，当添加一个socket时</p>
+<ol>
 <li>添加到红黑树中<code>epitem</code>节点</li>
 <li>在<code>Socket</code>中的等待队列上创建等待项<code>wait_queue_t</code>并且注册<code>epoll的回调函数ep_poll_callback</code>, 这里之前代表着被阻塞的进程，就绪时需要去唤醒；现在代表着你就绪了来通知我epoll就行（把<code>epitem</code>加入到<code>rdllist</code>，同时检查epoll的<code>wq</code>，有就回调唤醒）</li>
 </ol>
