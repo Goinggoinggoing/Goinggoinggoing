@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="Xun&#39;s Blog">
 <meta property="og:description" content="总体 加载代码 pc指针初始指向0xFFFF0（ROM）  代表BIOS的地址 加载硬盘第一扇区代码（bootsetct）到0x7c00 复制到0x90000 跳转到go代码，设置好cs ds ss sp 把全部os代码搬入内存（setup.s  2~5； head.s 240扇区），至此bootsect.s使命完成 setup.s  使用int 指令初始化光标、内存、显卡、磁盘等信息放到boot">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151102215.png">
+<meta property="og:image" content="https://data.gogoes.buzz/uploads/blogimg/202404151102215.png">
 <meta property="article:published_time" content="2023-06-23T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-17T14:54:45.687Z">
+<meta property="article:modified_time" content="2024-04-19T08:42:05.519Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151102215.png">
+<meta name="twitter:image" content="https://data.gogoes.buzz/uploads/blogimg/202404151102215.png">
   
   
   
@@ -315,7 +315,7 @@
             
               <div class="markdown-body">
                 
-                <h3 id="总体"><a href="#总体" class="headerlink" title="总体"></a>总体</h3><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101381.png" srcset="/img/loading.gif" lazyload alt="image-20240413113503285"></p>
+                <h3 id="总体"><a href="#总体" class="headerlink" title="总体"></a>总体</h3><p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101381.png" srcset="/img/loading.gif" lazyload alt="image-20240413113503285"></p>
 <h3 id="加载代码"><a href="#加载代码" class="headerlink" title="加载代码"></a>加载代码</h3><ul>
 <li>pc指针初始指向0xFFFF0（ROM）  代表BIOS的地址</li>
 <li>加载硬盘第一扇区代码（bootsetct）到0x7c00</li>
@@ -324,17 +324,17 @@
 <li>把全部os代码搬入内存（setup.s  2~5； head.s 240扇区），至此bootsect.s使命完成</li>
 <li>setup.s  使用<code>int</code> 指令初始化光标、内存、显卡、磁盘等信息放到bootsect.s的位置，并把system代码复制到0位置</li>
 </ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101383.png" srcset="/img/loading.gif" lazyload alt="image-20240413122232858"></p>
+<p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101383.png" srcset="/img/loading.gif" lazyload alt="image-20240413122232858"></p>
 <h3 id="进入保护模式"><a href="#进入保护模式" class="headerlink" title="进入保护模式"></a>进入保护模式</h3><p>setup.s</p>
 <ol>
 <li><p>设置初始化IDT(键盘、时钟、串口、鼠标)，GDT（包含代码段、数据段描述符）并设置寄存器指向他们的地址</p>
 </li>
 <li><p>将cr0中PE置为1，切换到保护模式（地址转换也响应变换）</p>
 <ul>
-<li><p>原来实模式下地址转换的方法<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101384.png" srcset="/img/loading.gif" lazyload alt="image-20240413114140760"></p>
+<li><p>原来实模式下地址转换的方法<img src="https://data.gogoes.buzz/uploads/blogimg/202404151101384.png" srcset="/img/loading.gif" lazyload alt="image-20240413114140760"></p>
 </li>
 <li><p>保护模式下转换方法：需要转换一下段基址（<strong>段寄存器（比如 ds、ss、cs）里存储的是段选择子，段选择子去全局描述符表中寻找段描述符，从中取出段基址</strong>）</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101385.png" srcset="/img/loading.gif" lazyload alt="image-20240413114229120"></p>
+<p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101385.png" srcset="/img/loading.gif" lazyload alt="image-20240413114229120"></p>
 </li>
 </ul>
 </li>
@@ -343,19 +343,19 @@
 <li><p>重新设置idt、gdt，指向新的空间</p>
 </li>
 </ol>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101386.png" srcset="/img/loading.gif" lazyload alt="image-20240413113535007"></p>
+<p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101386.png" srcset="/img/loading.gif" lazyload alt="image-20240413113535007"></p>
 <h3 id="开启分页"><a href="#开启分页" class="headerlink" title="开启分页"></a>开启分页</h3><h4 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h4><p><strong>cr0</strong>中的PG设置为1</p>
 <p>没有开启分页机制的时候，只需要经过这一步转换即可得到最终的物理地址了，但是在开启了分页机制后，又会<strong>多一步转换</strong>。</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101387.png" srcset="/img/loading.gif" lazyload alt="image-20240413115624426"></p>
+<p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101387.png" srcset="/img/loading.gif" lazyload alt="image-20240413115624426"></p>
 <p>二级页表线性地址转物理地址（第一级叫<strong>页目录表 PDE</strong>，第二级叫<strong>页表 PTE</strong>），<strong>MMU</strong>负责转换</p>
 <p>0000000011_0100000000_000000000000</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101388.png" srcset="/img/loading.gif" lazyload alt="image-20240413115734998"></p>
+<p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101388.png" srcset="/img/loading.gif" lazyload alt="image-20240413115734998"></p>
 <blockquote>
 <p>当时 linux-0.11 认为，总共可以使用的内存不会超过 <strong>16M</strong>，也即最大地址空间为 <strong>0xFFFFFF</strong>。</p>
 <p>而按照当前的页目录表和页表这种机制，1 个页目录表最多包含 1024 个页目录项（也就是 1024 个页表），1 个页表最多包含 1024 个页表项（也就是 1024 个页），1 页为 4KB（因为有 12 位偏移地址），因此，16M 的地址空间可以用 1 个页目录表 + 4 个页表搞定。</p>
 <p>4（页表数）* 1024（页表项数） * 4KB（一页大小）&#x3D; 16MB</p>
 </blockquote>
-<h4 id="全局结构"><a href="#全局结构" class="headerlink" title="全局结构"></a>全局结构</h4><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101389.png" srcset="/img/loading.gif" lazyload alt="image-20240413120123983"></p>
+<h4 id="全局结构"><a href="#全局结构" class="headerlink" title="全局结构"></a>全局结构</h4><p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101389.png" srcset="/img/loading.gif" lazyload alt="image-20240413120123983"></p>
 <p>CR3寄存器是虚拟内存管理的核心部分，与操作系统的内存管理紧密相关。当操作系统需要切换当前的内存映射时（如进程切换时），它会更新CR3寄存器的值来指向新的页目录表。</p>
 <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>Intel 体系结构的<strong>内存管理</strong>可以分成两大部分，也就是标题中的两板斧，<strong>分段</strong>和<strong>分页</strong>。</p>
 <p><strong>分段机制</strong>在之前几回已经讨论过多次了，其目的是为了为每个程序或任务提供单独的代码段（cs）、数据段（ds）、栈段（ss），使其不会相互干扰。(保护模式必须开启)</p>
@@ -367,9 +367,9 @@
 </ul>
 <p>最后进入main函数是利用ret指令，ret会将栈顶作为下一条指令的地址，所以只需要将main函数提前入栈即可</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>前五节：载入代码</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151101390.png" srcset="/img/loading.gif" lazyload alt="image-20240413122908367"></p>
+<p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151101390.png" srcset="/img/loading.gif" lazyload alt="image-20240413122908367"></p>
 <p>之后包含进入保护模式（分段）以及开启分页，初始化了IDT、GDT、页表，并且设置响应寄存器指向他们：idtr 寄存器指向了 idt，这个就是中断的设置；gdtr 寄存器指向了 gdt，这个就是全局描述符表的设置，可以简单理解为分段机制的设置；cr3 寄存器指向了页目录表的位置</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202404151111119.png" srcset="/img/loading.gif" lazyload alt="image-20240415111114132"></p>
+<p><img src="https://data.gogoes.buzz/uploads/blogimg/202404151111119.png" srcset="/img/loading.gif" lazyload alt="image-20240415111114132"></p>
 <blockquote>
 <p> Intel 本身对于访问内存就分成三类：</p>
 <ul>
