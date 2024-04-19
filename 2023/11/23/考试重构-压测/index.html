@@ -23,16 +23,16 @@
 <meta property="og:site_name" content="Xun&#39;s Blog">
 <meta property="og:description" content="11&#x2F;10 ~ 11&#x2F;23 重构原因 原来考试系统bug很多，redis使用也不合理，30人的考试就可能存在有人进不去考试、交不了卷的情况 原来的代码耦合性高，练习模式、考试模式可能开始考试用的不同函数、进入考试用的不同的函数，有时候改一个地方的功能影响到了另外的地方  重构基本思想 考试数据分为共享数据（题目、考试等）和个人做题数据，共享数据使用redis进行缓存，缓存时间可">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://data.gogoes.buzz/uploads/blogimg/image-20240325202455624.png">
+<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240325202455624.png">
 <meta property="article:published_time" content="2023-11-23T11:33:46.000Z">
-<meta property="article:modified_time" content="2024-04-19T08:42:04.781Z">
+<meta property="article:modified_time" content="2024-04-19T09:13:37.319Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="优化">
 <meta property="article:tag" content="水杉">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://data.gogoes.buzz/uploads/blogimg/image-20240325202455624.png">
+<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240325202455624.png">
   
   
   
@@ -384,7 +384,7 @@
 <li>开启动态扩容，压4k人，扩容瞬间系统崩溃</li>
 <li>提前给开好10pod 6k人，不使用mq，峰值在进入考试结尾以及交卷，尤其是交卷。交卷90%达到了10sRT。<ol>
 <li>分析：exam-pod的cpu利用率不高，推测是gateway usercenter的原因（第一时间运维同学不在没有找到mysql的pod），扩容gateway usercenter发现还是没有用</li>
-<li>rt:<img src="https://data.gogoes.buzz/uploads/blogimg/202311232119135.png" srcset="/img/loading.gif" lazyload alt="image-20231122140548390"></li>
+<li>rt:<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202311232119135.png" srcset="/img/loading.gif" lazyload alt="image-20231122140548390"></li>
 </ol>
 </li>
 <li>在找到<strong>mysql</strong>机器后发现mysql负载很高，理论上如果同一场考试同一批人连续压测，不应该有任何mysql请求，全部数据都进入了缓存，回到本地机器调试开启gateway usercenter的debug发现，任何一个请求都进行了额外数据库的查询，该查询不合理需要优化掉，因此本次压测暂时到此结束。</li>
