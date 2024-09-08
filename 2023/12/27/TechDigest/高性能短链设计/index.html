@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240318150323802.png">
 <meta property="article:published_time" content="2023-12-27T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-19T09:13:37.489Z">
+<meta property="article:modified_time" content="2024-08-24T11:28:25.963Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="文章精读">
 <meta property="article:tag" content="项目">
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2.6k 字
         
       </span>
     
@@ -252,7 +252,7 @@
         
         
         
-          16 分钟
+          22 分钟
         
       </span>
     
@@ -378,7 +378,21 @@
 <p>发号表：代表已经发出去的id，每行为一个区间，给一台机器</p>
 <p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240318154839222.png" srcset="/img/loading.gif" lazyload alt="image-20240318154839222"></p>
 <p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240318155037597.png" srcset="/img/loading.gif" lazyload alt="image-20240318155037597"></p>
+<p>或者直接一行为一个业务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mysql">CREATE TABLE `sequence_id_generator` (<br>  `id` int(10) NOT NULL,<br>  `current_max_id` bigint(20) NOT NULL COMMENT &#x27;当前最大id&#x27;,<br>  `step` int(10) NOT NULL COMMENT &#x27;号段的长度&#x27;,<br>  `version` int(20) NOT NULL COMMENT &#x27;版本号&#x27;,<br>  `biz_type`    int(20) NOT NULL COMMENT &#x27;业务类型&#x27;,<br>   PRIMARY KEY (`id`)<br>) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;<br><br>current_max_id ~ current_max_id + step已经被取走了<br></code></pre></td></tr></table></figure>
 
+<p>获取唯一ID</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">SELECT `current_max_id`, `step`,`version` FROM `sequence_id_generator` where `biz_type` = 101<br></code></pre></td></tr></table></figure>
+
+<p>分配新的区间，version实现并发管理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">UPDATE sequence_id_generator SET current_max_id = 0+100, version=version+1 WHERE version = 0  AND `biz_type` = 101<br>SELECT `current_max_id`, `step`,`version` FROM `sequence_id_generator` where `biz_type` = 101<br></code></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904090602848270">高性能短链设计今天，我们来谈谈如何设计一个高性能短链系统，短链系统设计看起来很简单，但每个点都能展开很多知识点，也是在面 - 掘金 (juejin.cn)</a></p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/user/1926000099501934/posts">高性能短链设计</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://javaguide.cn/distributed-system/distributed-id.html">分布式ID介绍&amp;实现方案总结 | JavaGuide</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
