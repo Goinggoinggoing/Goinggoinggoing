@@ -18,14 +18,14 @@
   
     <meta name="description" content="分布式事务产生原因？分布式系统拆分导致的 存储拆分分库分表  服务拆分 每个服务有自己的库，不能跨库访问 用户再下单时，创建订单和扣减库存，需要同时对订单DB和库存DB进行操作。两步操作必须同时成功，否则就会造成业务混乱，可此时我们只能保证自己服务的数据一致性，无法保证调用其他服务的操作是否成功，所以为了保证整个下单流程的数据一致性，就需要分布式事务介入。 分布式系统中，通常谈论一致性，都是最终一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2.分布式事务-MQ.md">
+<meta property="og:title" content="2.分布式事务-MQ">
 <meta property="og:url" content="http://example.com/2024/06/17/TechDigest/2.%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1-MQ/index.html">
 <meta property="og:site_name" content="Xun&#39;s Blog">
 <meta property="og:description" content="分布式事务产生原因？分布式系统拆分导致的 存储拆分分库分表  服务拆分 每个服务有自己的库，不能跨库访问 用户再下单时，创建订单和扣减库存，需要同时对订单DB和库存DB进行操作。两步操作必须同时成功，否则就会造成业务混乱，可此时我们只能保证自己服务的数据一致性，无法保证调用其他服务的操作是否成功，所以为了保证整个下单流程的数据一致性，就需要分布式事务介入。 分布式系统中，通常谈论一致性，都是最终一">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910162811798.png">
 <meta property="article:published_time" content="2024-06-17T12:33:46.000Z">
-<meta property="article:modified_time" content="2024-09-10T13:44:57.033Z">
+<meta property="article:modified_time" content="2024-09-23T11:25:05.123Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="消息队列">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   
   
   
-  <title>2.分布式事务-MQ.md - Xun&#39;s Blog</title>
+  <title>2.分布式事务-MQ - Xun&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">2.分布式事务-MQ.md</span>
+            <span id="subtitle">2.分布式事务-MQ</span>
           
         </div>
 
@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7k 字
+          7.1k 字
         
       </span>
     
@@ -309,20 +309,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">2.分布式事务-MQ.md</h1>
+            <h1 style="display: none">2.分布式事务-MQ</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="分布式事务产生原因？"><a href="#分布式事务产生原因？" class="headerlink" title="分布式事务产生原因？"></a>分布式事务产生原因？</h2><p>分布式系统拆分导致的</p>
+                <h2 id="分布式事务产生原因？"><a href="#分布式事务产生原因？" class="headerlink" title="分布式事务产生原因？"></a>分布式事务产生原因？</h2><p>分布式系统拆分导致的</p>
 <h3 id="存储拆分"><a href="#存储拆分" class="headerlink" title="存储拆分"></a>存储拆分</h3><p><strong>分库分表</strong></p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910151240942.png" srcset="/img/loading.gif" lazyload alt="image-20240910151240942"></p>
-<h3 id="服务拆分"><a href="#服务拆分" class="headerlink" title="服务拆分"></a><strong>服务拆分</strong></h3><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910151827142.png" srcset="/img/loading.gif" lazyload alt="image-20240910151827142"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923037.png" srcset="/img/loading.gif" lazyload alt="image-20240910151240942"></p>
+<h3 id="服务拆分"><a href="#服务拆分" class="headerlink" title="服务拆分"></a><strong>服务拆分</strong></h3><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923039.png" srcset="/img/loading.gif" lazyload alt="image-20240910151827142"></p>
 <p>每个服务有自己的库，不能跨库访问</p>
 <p>用户再下单时，创建订单和扣减库存，需要同时对订单DB和库存DB进行操作。两步操作必须同时成功，否则就会造成业务混乱，可此时我们只能保证自己服务的数据一致性，无法保证调用其他服务的操作是否成功，所以为了保证整个下单流程的数据一致性，就需要分布式事务介入。</p>
 <p>分布式系统中，通常谈论一致性，都是最终一致性，因为即时一致性是不切实际的</p>
 <h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>背景知识：MQ能够实现 at least once（消费者自己处理幂等）</p>
-<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910154832741.png" srcset="/img/loading.gif" lazyload alt="image-20240910154832741" style="zoom:50%;" />
+<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923040.png" srcset="/img/loading.gif" lazyload alt="image-20240910154832741" style="zoom:50%;" />
 
 <ol>
 <li>A作为生产者，B作为消费者</li>
@@ -334,21 +334,21 @@
 <li>A （1）执行动作   （2）发送消息， 如何保证这两个动作的原子性？  （重点问题）</li>
 </ol>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h3><p>可能的解决方案：基于本地事务包裹消息投递操作的实现方式，对应执行步骤如下：</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910155737406.png" srcset="/img/loading.gif" lazyload alt="image-20240910155737406"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923041.png" srcset="/img/loading.gif" lazyload alt="image-20240910155737406"></p>
 <p>致命问题：</p>
 <ol>
 <li>在和数据库交互的本地事务中，夹杂了和第三方组件的 IO 操作，可能存在引发长事务的风险</li>
 <li>执行消息投递时，可能因为超时或其他意外原因，导致出现消息在事实上已投递成功，但 producer 获得的投递响应发生异常的问题，这样就会导致本地事务被误回滚的问题</li>
 <li>在执行事务提交操作时，可能发生失败. 此时事务内的数据库修改操作自然能够回滚，然而 MQ 消息一经发出，就已经无法回收了</li>
 </ol>
-<h3 id="本地消息表"><a href="#本地消息表" class="headerlink" title="本地消息表"></a>本地消息表</h3><p>非可靠消息+本地消息事物表+定时任务校对</p>
+<h3 id="本地消息表"><a href="#本地消息表" class="headerlink" title="本地消息表"></a>本地消息表</h3><p>非可靠消息+本地消息事物表+<strong>定时任务校对</strong></p>
 <ol>
 <li><p>不可靠消息：业务活动主动方，在完成业务处理之后，向业务活动的被动方发送消息，允许消息丢失(不可靠消息)。</p>
 </li>
 <li><p>主动方需要本地事务写入 <strong>业务数据+消息数据</strong></p>
 </li>
 <li><p>定期校对：定时查看处于中间态的消息，重新投送</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910175403560.png" srcset="/img/loading.gif" lazyload alt="image-20240910175403560"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923042.png" srcset="/img/loading.gif" lazyload alt="image-20240910175403560"></p>
 </li>
 </ol>
 <p>优点：</p>
@@ -365,7 +365,7 @@
 <li>本地事务执行成功，然后宕机，check同样保证消息能被推送到成功状态（特别阶段情况下，比如上游一直没恢复还是会不一致）</li>
 <li>check的机制有点像本地任务表中的定时任务</li>
 </ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240830214006481.png" srcset="/img/loading.gif" lazyload alt="image-20240830214006481"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923043.png" srcset="/img/loading.gif" lazyload alt="image-20240830214006481"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//演示demo，模拟订单表查询服务，用来确认订单事务是否提交成功。</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">checkOrderById</span><span class="hljs-params">(String orderId)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><span class="hljs-comment">//演示demo，模拟本地事务的执行结果。</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">doLocalTransaction</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> ClientException &#123;<br>    <span class="hljs-type">ClientServiceProvider</span> <span class="hljs-variable">provider</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClientServiceProvider</span>();<br>    <span class="hljs-type">MessageBuilder</span> <span class="hljs-variable">messageBuilder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MessageBuilderImpl</span>();<br>    <span class="hljs-comment">//构造事务生产者：事务消息需要生产者构建一个事务检查器，用于检查确认异常半事务的中间状态。</span><br>    <span class="hljs-type">Producer</span> <span class="hljs-variable">producer</span> <span class="hljs-operator">=</span> provider.newProducerBuilder()<br>            .setTransactionChecker(messageView -&gt; &#123;<br>                <span class="hljs-comment">/**</span><br><span class="hljs-comment">                 * 事务检查器一般是根据业务的ID去检查本地事务是否正确提交还是回滚，此处以订单ID属性为例。</span><br><span class="hljs-comment">                 * 在订单表找到了这个订单，说明本地事务插入订单的操作已经正确提交；如果订单表没有订单，说明本地事务已经回滚。</span><br><span class="hljs-comment">                 */</span><br>                <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">orderId</span> <span class="hljs-operator">=</span> messageView.getProperties().get(<span class="hljs-string">&quot;OrderId&quot;</span>);<br>                <span class="hljs-keyword">if</span> (Strings.isNullOrEmpty(orderId)) &#123;<br>                    <span class="hljs-comment">// 错误的消息，直接返回Rollback。</span><br>                    <span class="hljs-keyword">return</span> TransactionResolution.ROLLBACK;<br>                &#125;<br>                <span class="hljs-keyword">return</span> checkOrderById(orderId) ? TransactionResolution.COMMIT : TransactionResolution.ROLLBACK;<br>            &#125;)<br>            .build();<br>    <span class="hljs-comment">//开启事务分支。</span><br>    <span class="hljs-keyword">final</span> Transaction transaction;<br>    <span class="hljs-keyword">try</span> &#123;<br>        transaction = producer.beginTransaction();<br>    &#125; <span class="hljs-keyword">catch</span> (ClientException e) &#123;<br>        e.printStackTrace();<br>        <span class="hljs-comment">//事务分支开启失败，直接退出。</span><br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-type">Message</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> messageBuilder.setTopic(<span class="hljs-string">&quot;topic&quot;</span>)<br>            <span class="hljs-comment">//设置消息索引键，可根据关键字精确查找某条消息。</span><br>            .setKeys(<span class="hljs-string">&quot;messageKey&quot;</span>)<br>            <span class="hljs-comment">//设置消息Tag，用于消费端根据指定Tag过滤消息。</span><br>            .setTag(<span class="hljs-string">&quot;messageTag&quot;</span>)<br>            <span class="hljs-comment">//一般事务消息都会设置一个本地事务关联的唯一ID，用来做本地事务回查的校验。</span><br>            .addProperty(<span class="hljs-string">&quot;OrderId&quot;</span>, <span class="hljs-string">&quot;xxx&quot;</span>)<br>            <span class="hljs-comment">//消息体。</span><br>            .setBody(<span class="hljs-string">&quot;messageBody&quot;</span>.getBytes())<br>            .build();<br>    <span class="hljs-comment">//发送半事务消息</span><br>    <span class="hljs-keyword">final</span> SendReceipt sendReceipt;<br>    <span class="hljs-keyword">try</span> &#123;<br>        sendReceipt = producer.send(message, transaction);<br>    &#125; <span class="hljs-keyword">catch</span> (ClientException e) &#123;<br>        <span class="hljs-comment">//半事务消息发送失败，事务可以直接退出并回滚。</span><br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 执行本地事务，并确定本地事务结果。</span><br><span class="hljs-comment">     * 1. 如果本地事务提交成功，则提交消息事务。</span><br><span class="hljs-comment">     * 2. 如果本地事务提交失败，则回滚消息事务。</span><br><span class="hljs-comment">     * 3. 如果本地事务未知异常，则不处理，等待事务消息回查。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">localTransactionOk</span> <span class="hljs-operator">=</span> doLocalTransaction();<br>    <span class="hljs-keyword">if</span> (localTransactionOk) &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            transaction.commit();<br>        &#125; <span class="hljs-keyword">catch</span> (ClientException e) &#123;<br>            <span class="hljs-comment">// 业务可以自身对实时性的要求选择是否重试，如果放弃重试，可以依赖事务消息回查机制进行事务状态的提交。</span><br>            e.printStackTrace();<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>            transaction.rollback();<br>        &#125; <span class="hljs-keyword">catch</span> (ClientException e) &#123;<br>            <span class="hljs-comment">// 建议记录异常信息，回滚异常时可以无需重试，依赖事务消息回查机制进行事务状态的提交。</span><br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
@@ -374,19 +374,19 @@
 <h3 id="TCC"><a href="#TCC" class="headerlink" title="TCC"></a>TCC</h3><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><ol>
 <li><strong>应用方 Application</strong>：指的是需要使用到分布式事务能力的应用方，即这套 TCC 框架服务的甲方</li>
 <li><strong>TCC 组件 TCC Component</strong>：指的是需要完成分布式事务中<strong>某个特定步骤的子模块</strong>. 这个模块通常负责一些状态数据的维护和更新操作，需要<strong>对外暴露出 Try、Confirm 和 Cancel 三个 API</strong>：<ul>
-<li><strong>Try</strong>：锁定资源，通常以类似【冻结】的语义对资源的状态进行描述，保留后续变化的可能性<ul>
-<li>订单服务：添加一个updating状态</li>
-<li>库存服务：添加一个预占库存列  预占库存列++； 库存–</li>
+<li><strong>Try</strong>：锁定资源，【冻结】资源，保留后续变化的可能性   <a target="_blank" rel="noopener" href="https://chatgpt.com/share/3f76f5ef-4b75-49a7-92a9-647b84b152a6">gpt参考</a><ul>
+<li>订单服务：添加一个try状态</li>
+<li>库存服务：添加一个预占库存列  预占库存列++； 库存–；同时插入冻结流水记录 用于回滚</li>
 </ul>
 </li>
 <li><strong>Confirm</strong>：对 Try 操作进行二次确认，将记录中的【冻结】态改为【成功】态<ul>
-<li>updating-&gt;success</li>
-<li>预占库存列–</li>
+<li>try-&gt;success</li>
+<li>预占库存列–； 流水修改try-&gt;success</li>
 </ul>
 </li>
 <li><strong>Cancel</strong>：对 Try 操作进行回滚，将记录中的【冻结】状消除或者改为【失败】态. 其底层对应的状态数据会进行回滚<ul>
-<li>updating-&gt;cancel</li>
-<li>预占库存– ；库存++</li>
+<li>try-&gt;cancel</li>
+<li>预占库存– ；库存++   ；流水修改try-&gt;cancel</li>
 </ul>
 </li>
 </ul>
@@ -399,13 +399,13 @@
 </ul>
 </li>
 </ol>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910162811798.png" srcset="/img/loading.gif" lazyload alt="image-20240910162811798"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923044.png" srcset="/img/loading.gif" lazyload alt="image-20240910162811798"></p>
 <h4 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h4><ol>
 <li>Application 调用 TX Manager 的接口，创建一轮分布式事务；声明，这次操作涉及到的 TCC Component 范围，包括 订单组件、账户组件和库存组件；传递好，用于和每个 TCC Component 交互的请求参数（ TX Manager 调用 Component Try 接口时需要传递）</li>
 <li>TX Manager 分配一个全局唯一的事务主键 Transaction ID，记录日志表</li>
 <li>TX Manager 分别调用订单、账户、库存组件的 Try 接口，流水表记录每一个try的结果<ol>
-<li>某一个失败，执行Cancel；在cancel都响应后设置日志表状态【失败】</li>
-<li>都成功，执行Confirm ；在Confirm 都响应后设置日志表状态【成功】</li>
+<li>某一个失败，执行Cancel；在cancel都响应后设置日志表状态<strong>【失败】</strong></li>
+<li>都成功，执行Confirm ；在Confirm 都响应后设置日志表状态<strong>【成功】</strong></li>
 </ol>
 </li>
 <li>根据try结构，返回给application最终结果（不等待CC的结果，只看try）</li>
@@ -417,7 +417,7 @@
 <li>如果try都成功，则补偿性地批量调用Confirm操作</li>
 <li>如果try还在进行中，则检查时间，如果太长按照失败处理</li>
 </ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910170713079.png" srcset="/img/loading.gif" lazyload alt="image-20240910170713079"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923045.png" srcset="/img/loading.gif" lazyload alt="image-20240910170713079"></p>
 <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>悬挂问题：try操作拥堵了，cancel操作先到达了，如果 cancel -&gt; try 会导致后续try无法释放</p>
 <p>解决：支持空回退：记录下cancel操作Transaction ID，之后try到达了直接忽略</p>
 <h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><p><strong>优点：</strong></p>
@@ -442,8 +442,8 @@
 <li>在账户模块中，对用户的账户进行相应金额的扣减</li>
 <li>在库存模块中，对商品的库存数量进行扣减</li>
 </ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910163518305.png" srcset="/img/loading.gif" lazyload alt="image-20240910163518305"></p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910163539671.png" srcset="/img/loading.gif" lazyload alt="image-20240910163539671"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923046.png" srcset="/img/loading.gif" lazyload alt="image-20240910163518305"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923047.png" srcset="/img/loading.gif" lazyload alt="image-20240910163539671"></p>
 <p>核心就是订单表添加try状态，库存表添加预占库存概念</p>
 <h5 id="1-订单模块"><a href="#1-订单模块" class="headerlink" title="1. 订单模块"></a>1. <strong>订单模块</strong></h5><p>Try 阶段：</p>
 <ul>
@@ -497,7 +497,7 @@
 </li>
 <li><p>操作</p>
 <ul>
-<li>检查商品库存是否充足，充足则冻结相应的库存。</li>
+<li>检查商品库存是否充足，充足则冻结相应的库存。同时插入冻结流水</li>
 <li>将冻结的库存数量记录到库存系统，确保其他订单无法占用这部分库存。</li>
 <li>返回冻结成功的结果，并记录库存操作流水号。</li>
 </ul>
@@ -546,7 +546,7 @@
 </ul>
 </li>
 </ol>
-<p>目前其实3中方案都加入了一个定时的任务，取轮询状态推进到最终态</p>
+<p>目前其实3个方案都加入了一个定时的任务，取轮询状态推进到最终态</p>
 <h3 id="两阶段提交2PC"><a href="#两阶段提交2PC" class="headerlink" title="两阶段提交2PC"></a>两阶段提交2PC</h3><p>简单而言：参与者（participant）用来管理资源，协调者（coordinator）用来协调事务状态</p>
 <p>两段提交（2PC - Prepare &amp; Commit）是指两个阶段的提交：</p>
 <ul>
@@ -561,7 +561,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240910152819014.png" srcset="/img/loading.gif" lazyload alt="image-20240910152819014"></p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231923048.png" srcset="/img/loading.gif" lazyload alt="image-20240910152819014"></p>
 <p>二阶段提交看似能够提供原子性的操作，但它存在着严重的缺陷：</p>
 <ul>
 <li><strong>网络抖动导致的数据不一致</strong>：第二阶段中协调者向参与者发送commit命令之后，一旦此时发生网络抖动，导致一部分参与者接收到了commit请求并执行，可其他未接到commit请求的参与者无法执行事务提交。进而导致整个分布式系统出现了数据不一致。</li>
@@ -632,6 +632,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/07/01/TechDigest/3.kafka-rocketmq%E5%AF%B9%E6%AF%94-MQ/" title="3.kafka-rocketmq对比-MQ">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">3.kafka-rocketmq对比-MQ</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

@@ -16,24 +16,24 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="MQ有哪些优点，为什么需要MQ？ 优点异步一个秒杀系统包含很多步骤，有的很重要，有的不重要。借助MQ可以只保留核心流程，提升系统性能  流量扩展流量：web前端可以上千万请求，但数据库（分库分表）是万级别水平 简单实现，压测评估流量，并引入限流算法：  固定窗口 滑动窗口 漏桶算法 令牌桶算法  加入异步后，秒杀流程  收到请求后，将整个请求加入MQ MQ消费者异步完成秒杀过程，处理响应 轮询秒杀">
+    <meta name="description" content="底层存储kafkaKafka部分名词解释如下：  Broker：消息中间件处理结点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。  Topic：一类消息，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。  Partition：topic物理上的分组，一个topic可以分为多个parti">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1.为什么要引入MQ-MQ">
-<meta property="og:url" content="http://example.com/2024/06/10/TechDigest/1.%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%95%E5%85%A5MQ-MQ/index.html">
+<meta property="og:title" content="3.kafka-rocketmq对比-MQ">
+<meta property="og:url" content="http://example.com/2024/07/01/TechDigest/3.kafka-rocketmq%E5%AF%B9%E6%AF%94-MQ/index.html">
 <meta property="og:site_name" content="Xun&#39;s Blog">
-<meta property="og:description" content="MQ有哪些优点，为什么需要MQ？ 优点异步一个秒杀系统包含很多步骤，有的很重要，有的不重要。借助MQ可以只保留核心流程，提升系统性能  流量扩展流量：web前端可以上千万请求，但数据库（分库分表）是万级别水平 简单实现，压测评估流量，并引入限流算法：  固定窗口 滑动窗口 漏桶算法 令牌桶算法  加入异步后，秒杀流程  收到请求后，将整个请求加入MQ MQ消费者异步完成秒杀过程，处理响应 轮询秒杀">
+<meta property="og:description" content="底层存储kafkaKafka部分名词解释如下：  Broker：消息中间件处理结点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。  Topic：一类消息，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。  Partition：topic物理上的分组，一个topic可以分为多个parti">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240314153236150.png">
-<meta property="article:published_time" content="2024-06-10T12:33:46.000Z">
-<meta property="article:modified_time" content="2024-09-23T11:24:39.421Z">
+<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923191338314.png">
+<meta property="article:published_time" content="2024-07-01T12:33:46.000Z">
+<meta property="article:modified_time" content="2024-09-23T11:26:44.825Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="消息队列">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240314153236150.png">
+<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923191338314.png">
   
   
   
-  <title>1.为什么要引入MQ-MQ - Xun&#39;s Blog</title>
+  <title>3.kafka-rocketmq对比-MQ - Xun&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">1.为什么要引入MQ-MQ</span>
+            <span id="subtitle">3.kafka-rocketmq对比-MQ</span>
           
         </div>
 
@@ -227,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-10 20:33" pubdate>
-          2024年6月10日 晚上
+        <time datetime="2024-07-01 20:33" pubdate>
+          2024年7月1日 晚上
         </time>
       </span>
     
@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.4k 字
         
       </span>
     
@@ -250,7 +250,7 @@
         
         
         
-          19 分钟
+          21 分钟
         
       </span>
     
@@ -309,173 +309,131 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">1.为什么要引入MQ-MQ</h1>
+            <h1 style="display: none">3.kafka-rocketmq对比-MQ</h1>
             
             
               <div class="markdown-body">
                 
-                <p>MQ有哪些优点，为什么需要MQ？</p>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><p>一个秒杀系统包含很多步骤，有的很重要，有的不重要。借助MQ可以只保留核心流程，提升系统性能</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924357.png" srcset="/img/loading.gif" lazyload alt="image-20240910141247065"></p>
-<h3 id="流量扩展"><a href="#流量扩展" class="headerlink" title="流量扩展"></a>流量扩展</h3><p>流量：web前端可以上千万请求，但数据库（分库分表）是万级别水平</p>
-<p>简单实现，压测评估流量，并引入限流算法：</p>
+                <h2 id="底层存储"><a href="#底层存储" class="headerlink" title="底层存储"></a>底层存储</h2><h3 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h3><p>Kafka部分名词解释如下：</p>
 <ul>
-<li>固定窗口</li>
-<li>滑动窗口</li>
-<li>漏桶算法</li>
-<li>令牌桶算法</li>
-</ul>
-<p>加入异步后，秒杀流程</p>
-<ol>
-<li>收到请求后，将整个请求加入MQ</li>
-<li>MQ消费者异步完成秒杀过程，处理响应</li>
-<li>轮询秒杀结果</li>
-</ol>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924359.png" srcset="/img/loading.gif" lazyload alt="image-20240910141812485"></p>
-<p>增加MQ可以削峰填谷</p>
-<p>代价：</p>
-<ol>
-<li>增加了系统调用环节，总体响应时间延长</li>
-<li>同步-&gt;异步 增加了系统复杂度</li>
-<li>成本问题：MQ的高性能 高可用</li>
-</ol>
-<h3 id="服务解耦"><a href="#服务解耦" class="headerlink" title="服务解耦"></a>服务解耦</h3><p>微服务之间如何通信？</p>
-<ul>
-<li><p>调用链模式</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924360.png" srcset="/img/loading.gif" lazyload alt="image-20240910142308284"></p>
+<li><p>Broker：消息中间件处理结点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。</p>
 </li>
-<li><p>聚合器模式</p>
-<ul>
-<li>一调多</li>
-</ul>
+<li><p>Topic：一类消息，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。</p>
 </li>
-<li><p>基于事件的异步</p>
+<li><p>Partition：topic物理上的分组，一个topic可以分为多个partition，每个partition是一个有序的队列。</p>
 </li>
-</ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924361.png" srcset="/img/loading.gif" lazyload alt="image-20240910142515875"></p>
-<p>​	电商系统，订单信息变动后上游发出消息，对于下游服务来说，只需要订阅相关的主题的消息，下游就可以收到消息，增加或者减少下游，上游服务都不需要变化，实现了上游服务和其他服务的解耦</p>
-<h2 id="如何选型"><a href="#如何选型" class="headerlink" title="如何选型"></a>如何选型</h2><p>基本特性</p>
-<ul>
-<li>可靠性：消息不丢失</li>
-<li>高可用：可用集群，某个宕机整体还可以运行</li>
-<li>高性能</li>
-</ul>
-<h3 id="Rabbitmq"><a href="#Rabbitmq" class="headerlink" title="Rabbitmq"></a>Rabbitmq</h3><p>特点：</p>
-<ul>
-<li>Erlang语言编写，轻量级，基于AMQP 协议</li>
-<li>灵活的路由机制：交换机</li>
-<li>客户端支持多</li>
-</ul>
-<p>问题：</p>
-<ul>
-<li>消息堆积支持不好</li>
-<li>性能较差（几万~十万）</li>
-</ul>
-<h3 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h3><ul>
-<li>经历过双十一考验，速度快</li>
-</ul>
-<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3><ul>
-<li>处理海量日志，大数据和流计算场景，周边生态好</li>
-<li>几十万条消息</li>
-<li>异步批量设计（可能会影响实时性）</li>
-</ul>
-<h3 id="选型"><a href="#选型" class="headerlink" title="选型"></a>选型</h3><ul>
-<li>简单易用，性能不需要很高：RabbitMQ</li>
-<li>RocketMQ一致性良好、低延时、稳定<ul>
-<li>例如订单完成后通知物流，实现解耦</li>
-<li>最终一致性的分布式事务</li>
-</ul>
+<li><p>Segment：partition物理上由多个segment组成。</p>
 </li>
-<li>Kafka：大数据、日志<ul>
-<li>数据埋点：电商用户行为日志（点击、购买），收集后提供给计算引擎进行实时计算分析，得出营销活动的转化率</li>
-<li>监控、大数据分析：收集监控系统、传感器、日志信息进行实时分析和处理</li>
+<li><p>offset：每个partition都由一系列有序的、不可变的消息组成，这些消息被连续的追加到partition中。partition中的每个消息都有一个连续的序列号叫做offset,用于partition<strong>唯一标识</strong>一条消息.（只在partition下唯一）</p>
+</li>
+<li><p>同一个topic下有多个不同partition，每个partition为一个目录，命名规则为topic名称+partition的有序序号</p>
+<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923111352406.png" srcset="/img/loading.gif" lazyload alt="image-20240923111352406" style="zoom:50%;" />
+</li>
+<li><p>一个partition相当于一个巨型文件，被顺序分配到了多个segment文件中，文件名为当前第一条消息的offset</p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923111647323.png" srcset="/img/loading.gif" lazyload alt="image-20240923111647323"></p>
+</li>
+<li><p>segment文件组成</p>
+<ul>
+<li><strong>xxxx.log</strong>：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/solution/cloudlog?from_column=20065&from=20065">日志数据</a>文件，按照固定的格式存储生产者分送过来的消息数据 </li>
+<li><strong>xxxx.index</strong>：索引文件，该文件主要记录了哪条消息(offset)写在对应的xxxx.log文件中的哪个位置(position)，查询消息时首先查询该文件，然后再去日志数据文件中读取对应的消息数据。（<strong>稀疏索引存储</strong>的，也就是每隔几条消息数据建一条索引。所以在查找该条消息时只需要找到对应的消息编号最近的索引位置，然后再在数据文件中顺序查找。）</li>
 </ul>
 </li>
 </ul>
-<h2 id="消息队列模型"><a href="#消息队列模型" class="headerlink" title="消息队列模型"></a>消息队列模型</h2><h3 id="队列模型"><a href="#队列模型" class="headerlink" title="队列模型"></a>队列模型</h3><p>最初的消息模型：队列模型</p>
-<p>生产者Producer发送消息就是入队，消费者Consumer消费消息就是出队</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924362.png" srcset="/img/loading.gif" lazyload alt="image-20240910144716185"></p>
-<p>默认所有消费者<strong>共同消费</strong>所有消息</p>
-<p>如何让多个消费者收到呢？ 交换机exchange根据策略转发到多个队列</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924363.png" srcset="/img/loading.gif" lazyload alt="image-20240910145341478"></p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924364.png" srcset="/img/loading.gif" lazyload alt="image-20240910145359547"></p>
-<h3 id="发布订阅模型"><a href="#发布订阅模型" class="headerlink" title="发布订阅模型"></a>发布订阅模型</h3><p>发布者Publisher、接收者Subscriber、主题Topic</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924365.png" srcset="/img/loading.gif" lazyload alt="image-20240910145004643"></p>
-<p>默认订阅者都可以接受完整的消息，rocketmq中是消费组可以消费完整消息，组内是竞争关系</p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923111653552.png" srcset="/img/loading.gif" lazyload alt="image-20240923111653552"></p>
+<p>当消费者给出一个offset，需要查找该消息：</p>
+<p>例如读取offset&#x3D;368776的message，需要通过下面2个步骤查找。</p>
 <ul>
-<li>如何保证有序性？topic中引入队列，队列中消息有序（Orderly模式下、Concurrently不保证）</li>
-<li>每一个消费组中每一个queue都会维护一个offset</li>
+<li>第一步二分查找segment文件，因为文件名是按照offset来命名的</li>
+<li>找到正确的 <code>.index</code> 文件后，Kafka 使用该索引文件中的记录，定位消息在 <code>.log</code> 文件中的大致物理位置。由于 Kafka 的索引是稀疏的，可能并不会直接定位到目标 <code>offset</code> 对应的精确位置，因此 Kafka 会从索引定位的物理地址开始，顺序读取 <code>.log</code> 文件，直到找到目标 <code>offset</code> 的消息。</li>
 </ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924366.png" srcset="/img/loading.gif" lazyload alt="image-20240910150349650"></p>
-<p>几乎所有MQ都是“请求-确认机制”</p>
+<blockquote>
+<p>为什么需要index文件：</p>
+<p>​	segment.log文件中存储的每一条消息长度是不一样的，因此如果直接查找需要遍历整个大的log文件，一条一条对比offset，而有了index文件后，变成了O(log n)（二分查找索引）+ O(k)（扫描少量消息）</p>
+</blockquote>
+<p>写（生产）消息：</p>
 <ul>
-<li>broker接收到消息后，会发送确认，如果生产者没有收到确认，会重新发送</li>
-<li>消费者消费后，会发送确认消息，否者MQ会重新发送消息</li>
+<li>index文件较小，可以直接用mmap进行内存映射</li>
+<li>segment文件较大，可以采用普通的write（FileChannel.write），由于是顺序写PageCache，可以达到很高的性能</li>
 </ul>
-<h2 id="消费模式-amp-重复消费问题"><a href="#消费模式-amp-重复消费问题" class="headerlink" title="消费模式&amp;重复消费问题"></a>消费模式&amp;重复消费问题</h2><h3 id="1-至少一次（At-Least-Once）"><a href="#1-至少一次（At-Least-Once）" class="headerlink" title="1. 至少一次（At-Least-Once）"></a>1. <strong>至少一次（At-Least-Once）</strong></h3><ul>
-<li><strong>定义</strong>：消息会被<strong>至少消费一次</strong>，即消费者可能会收到重复的消息。</li>
-<li><strong>原理</strong>：消息队列会在消息投递后，等待消费者的确认（ACK）。如果消费者处理失败或ACK没有及时收到，消息队列会重新投递该消息。因此，消费者可能会处理同一条消息多次（消费组<strong>幂等性</strong>）。</li>
-<li>特点<ul>
-<li><strong>可靠性高</strong>：消息不会丢失，但可能会重复。</li>
-<li><strong>应用场景</strong>：适用于对消息丢失敏感的场景，但允许重复消费的场景，比如日志系统、支付系统（必须通过幂等性保证结果一致）。</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-仅一次（Exactly-Once）"><a href="#2-仅一次（Exactly-Once）" class="headerlink" title="2. 仅一次（Exactly-Once）"></a>2. <strong>仅一次（Exactly-Once）</strong></h3><ul>
-<li><strong>定义</strong>：消息会被<strong>准确消费一次</strong>，即不会重复投递或消费。</li>
-<li><strong>原理</strong>：这是最复杂的交付模式，通常通过消费者的幂等性处理或者分布式事务保证。消息队列和消费者之间需要实现严格的幂等性机制或事务机制，确保每条消息只被处理一次且不会遗漏。</li>
-<li>特点<ul>
-<li><strong>高可靠性且无重复</strong>：不会丢失或重复消息，保证消息精确传递和处理。</li>
-<li><strong>应用场景</strong>：适用于对数据处理准确性要求极高的场景，比如银行交易、库存管理系统。</li>
-<li><strong>实现难度</strong>：通常实现较为复杂，性能也可能较低，因为要处理事务、幂等和重试机制等。</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-最多一次（At-Most-Once）"><a href="#3-最多一次（At-Most-Once）" class="headerlink" title="3. 最多一次（At-Most-Once）"></a>3. <strong>最多一次（At-Most-Once）</strong></h3><ul>
-<li><strong>定义</strong>：消息会被<strong>最多消费一次</strong>，即消费者可能会<strong>漏掉</strong>一些消息。</li>
-<li><strong>原理</strong>：消息在传递给消费者后，不需要等待确认，即使消费者处理失败，消息也不会重发。这种模式保证不会重复消费，但可能会导致消息丢失。</li>
-<li>特点<ul>
-<li><strong>低可靠性</strong>：消息可能丢失，但绝不重复。</li>
-<li><strong>应用场景</strong>：适用于对消息丢失不敏感的场景，如缓存更新、临时通知等。</li>
-</ul>
-</li>
-</ul>
-<p>最佳实践：At-Least-Once + 消费者幂等</p>
+<p>读（消费）消息：</p>
 <ul>
-<li>消费者更新前检查版本，有点像</li>
-<li>全局唯一ID + 状态检查 + 分布式锁</li>
+<li>index文件仍然通过mmap读，缺页中断的可能性较小</li>
+<li>segment可以使用sendfile进行零拷贝的发送给消费者，达到非常高的性能</li>
 </ul>
-<h2 id="消息可靠性"><a href="#消息可靠性" class="headerlink" title="消息可靠性"></a>消息可靠性</h2><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924367.png" srcset="/img/loading.gif" lazyload alt="image-20240912174934128"></p>
-<p><strong>生产者</strong>：发送确认</p>
-<ul>
-<li>刷盘策略   影响<strong>可靠性</strong><ul>
-<li>rocketmq FlushDiskType调整为同步刷盘，刷盘后ack</li>
-</ul>
-</li>
-<li>复制策略  影响<strong>可用性</strong><ul>
-<li>同步复制：也叫 “同步双写”，也就是说，<strong>只有消息同步双写到主从节点上时才返回写入成功</strong> 。</li>
-<li>异步复制：<strong>消息写入主节点之后就直接返回写入成功</strong> 。</li>
-<li>DLedger 模式下复制到集群中<strong>半数以上的节点</strong>，才返回ack<ul>
-<li>kafka： acks&#x3D;all  全部、   ack&#x3D;0  发送立即返回、 ack&#x3D;1 主写入成功后返回</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>消费者</strong>：手动提交</p>
-<h2 id="消息挤压"><a href="#消息挤压" class="headerlink" title="消息挤压"></a>消息挤压</h2><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924368.png" srcset="/img/loading.gif" lazyload alt="image-20240912183318783"></p>
-<p>1.和消息生产者无关</p>
-<p>2.和消息队列本身无关，消息队列可以十万QPS  还可以扩容，性能远高于业务</p>
-<p>突发问题：应急处理 扩容增加消费者数量、降级系统（关闭不重要的业务）以减少发送数据量</p>
-<p>后续：扩充消费者数量以及topic分区数量、消费端代码性能（是不是死锁、资源卡死）</p>
-<h2 id="顺序消费"><a href="#顺序消费" class="headerlink" title="顺序消费"></a>顺序消费</h2><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924369.png" srcset="/img/loading.gif" lazyload alt="image-20240912183650602"></p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924370.png" srcset="/img/loading.gif" lazyload alt="image-20240912184227858"></p>
-<h3 id="业务实现"><a href="#业务实现" class="headerlink" title="业务实现"></a>业务实现</h3><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202409231924371.png" srcset="/img/loading.gif" lazyload alt="image-20240912184233776"></p>
-<ul>
-<li>消息发送时给一个唯一递增ID，消费时id必须递增；  不保证有序但可以递增</li>
-<li>ID换成时间戳</li>
-</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ssize_t</span> <span class="hljs-title function_">sendfile</span><span class="hljs-params">(<span class="hljs-type">int</span> out_fd, <span class="hljs-type">int</span> in_fd, <span class="hljs-type">off_t</span> *offset, <span class="hljs-type">size_t</span> count)</span>;<br><span class="hljs-comment">// 单次系统调用，以及3 or 2 次数据拷贝</span><br></code></pre></td></tr></table></figure>
 
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923115252328.png" srcset="/img/loading.gif" lazyload alt="image-20240923115252328"></p>
+<p><strong>存在问题：</strong></p>
+<p>在Kafka文件读写中，针对segment文件写入是采用<strong>顺序write</strong>的，但是如果<strong>topic数量以及下面parition数量</strong>一多，从操作系统的角度看就变成了随机写入，导致写入性能下降。</p>
+<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923113541061.png" srcset="/img/loading.gif" lazyload alt="image-20240923113541061" style="zoom:50%;" />
+
+
+
+<h3 id="rocketmq"><a href="#rocketmq" class="headerlink" title="rocketmq"></a>rocketmq</h3><ol>
+<li>所有的消息数据（不同topic、不同队列）都写入同一个文件（当然物理存储时还是会以固定大小进行文件切割），这个文件称之为CommitLog</li>
+<li>为了加速消费消息，建立轻量级索引，为每个队列新增ConsumeQueue文件，存储消息在CommitLog中的文件偏移量，而不是像kafka一样存储完整的消息内容  topic&#x2F;queue&#x2F;file</li>
+<li>现在读取变成了两次，先去queue读偏移，再去CommitLog读数据</li>
+</ol>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923191338314.png" srcset="/img/loading.gif" lazyload alt="image-20240923191338314"></p>
+<p>写（生产）消息：</p>
+<ul>
+<li>无论是ConsumeQueue还是CommitLog都使用mmap进行写</li>
+</ul>
+<p>读（消费）消息：</p>
+<ul>
+<li>无论是ConsumeQueue还是CommitLog都使用mmap进行读</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">buf = mmap(file, len);<br>write(sockfd, buf, len);<br><br><span class="hljs-comment">// 两次系统调用 3次数据拷贝（减少一次内核到用户拷贝）</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923115304549.png" srcset="/img/loading.gif" lazyload alt="image-20240923115304549"></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Kafka</th>
+<th>RocketMQ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>文件结构</strong></td>
+<td>1.index索引文件 +log文件<br />2.多个队列多个segment消息文件</td>
+<td>1.ConsumeQueue索引文件 <br />2.多个队列一个CommitLog消息文件</td>
+</tr>
+<tr>
+<td><strong>IO写</strong></td>
+<td>1.index文件采用mmap 2.segment采用write</td>
+<td>均采用mmap</td>
+</tr>
+<tr>
+<td><strong>IO读</strong></td>
+<td>1.index文件采用mmap 2.segment采用sendfile</td>
+<td>均采用mmap</td>
+</tr>
+<tr>
+<td><strong>优点</strong></td>
+<td>1.每个topic的队列互不影响 <br />2.数据量较大（&gt;4kb）时写入性能更高 <br />3.消费时可以利用sendfile+DMA零拷贝机制</td>
+<td>1.commitLog完全顺序写 <br />2.单机可以配置更多队列</td>
+</tr>
+<tr>
+<td><strong>缺点</strong></td>
+<td>1.单机队列配置较多时，有性能损失</td>
+<td>1.随机读遇到缺页中断成本高 <br />2.不能利用sendfile机制</td>
+</tr>
+</tbody></table>
+<p>架构上做减法</p>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>rocketmq </p>
+<ul>
+<li>tag过滤</li>
+<li>支持事务</li>
+<li>延时队列</li>
+<li>死信队列</li>
+</ul>
+<p>sendfile更快，为什么rocketmq不使用？</p>
+<p><code>sendfile</code> 更适用于简单的文件传输，而 RocketMQ 需要对消息数据进行一定的处理和转换（例如死信队列）。<code>mmap</code> 允许直接在用户态中对文件数据进行操作，提供了更大的灵活性。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1m7421Z7fN">https://www.bilibili.com/video/BV1m7421Z7fN</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://t1mek1ller.github.io/2019/11/13/kafka-rocketmq-storage/">Kafka和RocketMQ文件存储机制对比 (t1mek1ller.github.io)</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://tech.meituan.com/2015/01/13/kafka-fs-design-theory.html">Kafka文件存储机制那些事 - 美团技术团队 (meituan.com)</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -529,18 +487,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/17/TechDigest/2.%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1-MQ/" title="2.分布式事务-MQ">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2.分布式事务-MQ</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/10/TechDigest/TL_ITL_TTL%E5%8E%9F%E7%90%86/" title="TL_ITL_TTL原理">
-                        <span class="hidden-mobile">TL_ITL_TTL原理</span>
+                      <a href="/2024/06/17/TechDigest/2.%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1-MQ/" title="2.分布式事务-MQ">
+                        <span class="hidden-mobile">2.分布式事务-MQ</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
