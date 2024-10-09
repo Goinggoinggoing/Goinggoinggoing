@@ -16,24 +16,25 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="底层存储kafkaKafka部分名词解释如下：  Broker：消息中间件处理结点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。  Topic：一类消息，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。  Partition：topic物理上的分组，一个topic可以分为多个parti">
+    <meta name="description" content="对于访问流量的热点检测，本质是如何从流式数据计算出topk。对于有限的数据项，可以简单地使用 Hashmap+Heap-Sort来对数据进行计数排序。但是对于海量数据以及有限的内存，该方法几乎是行不通的。因此我们需要使用更高效的数据结构和算法来实现。 Majority问题 数组中有一个数字出现的次数超过数组长度的一半 m &#x2F; 2，请找出这个数字。  169. 多数元素 - 力扣（Leet">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3.kafka-rocketmq对比-MQ">
-<meta property="og:url" content="http://example.com/2024/07/01/TechDigest/3.kafka-rocketmq%E5%AF%B9%E6%AF%94-MQ/index.html">
+<meta property="og:title" content="hotKey检测">
+<meta property="og:url" content="http://example.com/2024/07/20/TechDigest/hotKey%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="Xun&#39;s Blog">
-<meta property="og:description" content="底层存储kafkaKafka部分名词解释如下：  Broker：消息中间件处理结点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。  Topic：一类消息，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。  Partition：topic物理上的分组，一个topic可以分为多个parti">
+<meta property="og:description" content="对于访问流量的热点检测，本质是如何从流式数据计算出topk。对于有限的数据项，可以简单地使用 Hashmap+Heap-Sort来对数据进行计数排序。但是对于海量数据以及有限的内存，该方法几乎是行不通的。因此我们需要使用更高效的数据结构和算法来实现。 Majority问题 数组中有一个数字出现的次数超过数组长度的一半 m &#x2F; 2，请找出这个数字。  169. 多数元素 - 力扣（Leet">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923191338314.png">
-<meta property="article:published_time" content="2024-07-01T12:33:46.000Z">
-<meta property="article:modified_time" content="2024-09-23T11:26:44.825Z">
+<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919360.png">
+<meta property="article:published_time" content="2024-07-20T12:33:46.000Z">
+<meta property="article:modified_time" content="2024-10-09T11:20:38.885Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="消息队列">
+<meta property="article:tag" content="热点key">
+<meta property="article:tag" content="高并发">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923191338314.png">
+<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919360.png">
   
   
   
-  <title>3.kafka-rocketmq对比-MQ - Xun&#39;s Blog</title>
+  <title>hotKey检测 - Xun&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +217,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">3.kafka-rocketmq对比-MQ</span>
+            <span id="subtitle">hotKey检测</span>
           
         </div>
 
@@ -227,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-01 20:33" pubdate>
-          2024年7月1日 晚上
+        <time datetime="2024-07-20 20:33" pubdate>
+          2024年7月20日 晚上
         </time>
       </span>
     
@@ -239,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          2.7k 字
         
       </span>
     
@@ -250,7 +251,7 @@
         
         
         
-          21 分钟
+          23 分钟
         
       </span>
     
@@ -309,131 +310,113 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">3.kafka-rocketmq对比-MQ</h1>
+            <h1 style="display: none">hotKey检测</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="底层存储"><a href="#底层存储" class="headerlink" title="底层存储"></a>底层存储</h2><h3 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h3><p>Kafka部分名词解释如下：</p>
-<ul>
-<li><p>Broker：消息中间件处理结点，一个Kafka节点就是一个broker，多个broker可以组成一个Kafka集群。</p>
-</li>
-<li><p>Topic：一类消息，例如page view日志、click日志等都可以以topic的形式存在，Kafka集群能够同时负责多个topic的分发。</p>
-</li>
-<li><p>Partition：topic物理上的分组，一个topic可以分为多个partition，每个partition是一个有序的队列。</p>
-</li>
-<li><p>Segment：partition物理上由多个segment组成。</p>
-</li>
-<li><p>offset：每个partition都由一系列有序的、不可变的消息组成，这些消息被连续的追加到partition中。partition中的每个消息都有一个连续的序列号叫做offset,用于partition<strong>唯一标识</strong>一条消息.（只在partition下唯一）</p>
-</li>
-<li><p>同一个topic下有多个不同partition，每个partition为一个目录，命名规则为topic名称+partition的有序序号</p>
-<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923111352406.png" srcset="/img/loading.gif" lazyload alt="image-20240923111352406" style="zoom:50%;" />
-</li>
-<li><p>一个partition相当于一个巨型文件，被顺序分配到了多个segment文件中，文件名为当前第一条消息的offset</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923111647323.png" srcset="/img/loading.gif" lazyload alt="image-20240923111647323"></p>
-</li>
-<li><p>segment文件组成</p>
-<ul>
-<li><strong>xxxx.log</strong>：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/solution/cloudlog?from_column=20065&from=20065">日志数据</a>文件，按照固定的格式存储生产者分送过来的消息数据 </li>
-<li><strong>xxxx.index</strong>：索引文件，该文件主要记录了哪条消息(offset)写在对应的xxxx.log文件中的哪个位置(position)，查询消息时首先查询该文件，然后再去日志数据文件中读取对应的消息数据。（<strong>稀疏索引存储</strong>的，也就是每隔几条消息数据建一条索引。所以在查找该条消息时只需要找到对应的消息编号最近的索引位置，然后再在数据文件中顺序查找。）</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923111653552.png" srcset="/img/loading.gif" lazyload alt="image-20240923111653552"></p>
-<p>当消费者给出一个offset，需要查找该消息：</p>
-<p>例如读取offset&#x3D;368776的message，需要通过下面2个步骤查找。</p>
-<ul>
-<li>第一步二分查找segment文件，因为文件名是按照offset来命名的</li>
-<li>找到正确的 <code>.index</code> 文件后，Kafka 使用该索引文件中的记录，定位消息在 <code>.log</code> 文件中的大致物理位置。由于 Kafka 的索引是稀疏的，可能并不会直接定位到目标 <code>offset</code> 对应的精确位置，因此 Kafka 会从索引定位的物理地址开始，顺序读取 <code>.log</code> 文件，直到找到目标 <code>offset</code> 的消息。</li>
-</ul>
-<blockquote>
-<p>为什么需要index文件：</p>
-<p>​	segment.log文件中存储的每一条消息长度是不一样的，因此如果直接查找需要遍历整个大的log文件，一条一条对比offset，而有了index文件后，变成了O(log n)（二分查找索引）+ O(k)（扫描少量消息）</p>
+                <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>对于访问流量的热点检测，本质是如何从流式数据计算出topk。对于有限的数据项，可以简单地使用 Hashmap+Heap-Sort来对数据进行计数排序。但是对于海量数据以及有限的内存，该方法几乎是行不通的。因此我们需要使用更高效的数据结构和算法来实现。</p>
+<h3 id="Majority问题"><a href="#Majority问题" class="headerlink" title="Majority问题"></a>Majority问题</h3><blockquote>
+<p>数组中有一个数字出现的次数超过数组长度的一半 m &#x2F; 2，请找出这个数字。</p>
 </blockquote>
-<p>写（生产）消息：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/majority-element/description/">169. 多数元素 - 力扣（LeetCode）</a></p>
+<p>解决：维护一个候选元素以及数量，如果下一个元素相同，则++， 否者–；计数为0时更换候选元素</p>
 <ul>
-<li>index文件较小，可以直接用mmap进行内存映射</li>
-<li>segment文件较大，可以采用普通的write（FileChannel.write），由于是顺序写PageCache，可以达到很高的性能</li>
+<li>最多扣减 m &#x2F; 2 - 1次，因此majority元素不会被扣成0</li>
 </ul>
-<p>读（消费）消息：</p>
+<h3 id="Misra-Gries算法"><a href="#Misra-Gries算法" class="headerlink" title="Misra-Gries算法"></a>Misra-Gries算法</h3><p>推广</p>
+<blockquote>
+<p>数据流中一共有m个元素，请找出出现频率超过m &#x2F; k的k - 1个元素。</p>
+</blockquote>
+<p>维护k - 1个候选值与计数器的集合：</p>
 <ul>
-<li>index文件仍然通过mmap读，缺页中断的可能性较小</li>
-<li>segment可以使用sendfile进行零拷贝的发送给消费者，达到非常高的性能</li>
+<li><p>如果元素在集合中，将其对应的计数器自增；</p>
+</li>
+<li><p>如果元素不在集合中且集合未满，就将元素加入集合，计数器设为1；</p>
+</li>
+<li><p>如果元素不在集合中且集合已满，将集合内所有计数器自减，计数器减为0的元素被移</p>
+</li>
+<li><p>每次减少计数k次（k-1 + 触发元素1），最多减少m&#x2F;k 次，所以最终大于m&#x2F;k的一定能留下来</p>
+</li>
+<li><p>最终结果能够保证没有假阴性（false negative），即不会漏掉实际频率高于m &#x2F; k的元素。但可能会出现假阳性（false positive），即混入实际频率低于m &#x2F; k的元素。</p>
+</li>
 </ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ssize_t</span> <span class="hljs-title function_">sendfile</span><span class="hljs-params">(<span class="hljs-type">int</span> out_fd, <span class="hljs-type">int</span> in_fd, <span class="hljs-type">off_t</span> *offset, <span class="hljs-type">size_t</span> count)</span>;<br><span class="hljs-comment">// 单次系统调用，以及3 or 2 次数据拷贝</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923115252328.png" srcset="/img/loading.gif" lazyload alt="image-20240923115252328"></p>
-<p><strong>存在问题：</strong></p>
-<p>在Kafka文件读写中，针对segment文件写入是采用<strong>顺序write</strong>的，但是如果<strong>topic数量以及下面parition数量</strong>一多，从操作系统的角度看就变成了随机写入，导致写入性能下降。</p>
-<img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923113541061.png" srcset="/img/loading.gif" lazyload alt="image-20240923113541061" style="zoom:50%;" />
-
-
-
-<h3 id="rocketmq"><a href="#rocketmq" class="headerlink" title="rocketmq"></a>rocketmq</h3><ol>
-<li>所有的消息数据（不同topic、不同队列）都写入同一个文件（当然物理存储时还是会以固定大小进行文件切割），这个文件称之为CommitLog</li>
-<li>为了加速消费消息，建立轻量级索引，为每个队列新增ConsumeQueue文件，存储消息在CommitLog中的文件偏移量，而不是像kafka一样存储完整的消息内容  topic&#x2F;queue&#x2F;file</li>
-<li>现在读取变成了两次，先去queue读偏移，再去CommitLog读数据</li>
+<h3 id="Lossy-Counting"><a href="#Lossy-Counting" class="headerlink" title="Lossy Counting"></a>Lossy Counting</h3><ul>
+<li>将数据切分成k个窗口，每次添加窗口内元素的频率并且最后 所有元素频率–，删除等于零的元素</li>
+<li>窗口越大误差越小</li>
+</ul>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919356.png" srcset="/img/loading.gif" lazyload alt="image-20241009151313681"></p>
+<h3 id="Count-Min-Sketch"><a href="#Count-Min-Sketch" class="headerlink" title="Count-Min Sketch"></a>Count-Min Sketch</h3><ul>
+<li><p>一个二维数组，宽w（桶的个数），深度d（hash函数个数）</p>
+</li>
+<li><p>d个hash函数</p>
+</li>
+<li><p>每一个元素x，通过d个hash映射到d个位置上++</p>
+</li>
+<li><p>计数时，为d个hash函数的结果最小值；</p>
+</li>
+<li><p>结果偏大，hash冲突越低约接近真实值</p>
+</li>
+<li><p>获得topk：额外维护一个最小堆topk</p>
+</li>
+</ul>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919357.png" srcset="/img/loading.gif" lazyload alt="image-20241009151820033"></p>
+<h3 id="HeavyKeeper"><a href="#HeavyKeeper" class="headerlink" title="HeavyKeeper"></a>HeavyKeeper</h3><p>2018年提出，对CM sketch算法在hash冲突时进行了优化，使用指纹结合指数衰减，剔除低频袁术</p>
+<ol>
+<li><p>初始化d个w桶的哈希表,所有指纹和计数器置零</p>
+</li>
+<li><p>对于数据流中的每个元素x:</p>
+<ul>
+<li>计算d个哈希值: h1(x), h2(x), …, hd(x)</li>
+<li>对每个哈希表i (1 ≤ i ≤ d):<ul>
+<li>if 第hi(x)个桶的指纹为空或等于x的指纹:<ul>
+<li>增加计数器</li>
+</ul>
+</li>
+<li>else:<ul>
+<li>以一定概率减少计数器<code>P = b^(-C)</code>，<strong>C越小衰减概率越低，可用保证低频元素快速被剔除，而高频可以保留</strong><ul>
+<li>b 是一个大于1的参数，通常设置为1.08</li>
+<li>C 是当前的计数器值</li>
+</ul>
+</li>
+<li>如果计数器变为0,则用x的指纹替换当前指纹</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查询时,返回d个表中x对应位置的最大计数值作为频率估计</p>
+</li>
 </ol>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923191338314.png" srcset="/img/loading.gif" lazyload alt="image-20240923191338314"></p>
-<p>写（生产）消息：</p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919358.png" srcset="/img/loading.gif" lazyload alt="image-20241009154341231"></p>
+<p><strong>突发流量：</strong></p>
+<p>原始的算法实现在统计topk的时候具有很高的准确率，但是对于在线<strong>实时热点统计</strong>，当出现突发热点数据的时候，由于历史数据流的频次统计堆积，原有算法很难快速识别突发热点。举个简单例子:</p>
+<p>在实时数据流中统计出现频次最高的 top3，假设元素 a b c 是历史数据中访问频次最高的三个元素，且qps 都为10 ，在不考虑哈希冲突的情况下，假设数据流持续了1000s， 那么此时二维数组中这三个元素对应的频次则都为 1w, 从1001s开始，出现了一个突发热点元素d， 元素 d 的 qps 为100，按原始算法， 元素 d 得在频次超过1w以后才会被加入top3，当频次达到1w时，距离突发热点出现已经过去了100s，原始实现对于突发热点的检测是相当迟钝的。</p>
+<p><strong>引入衰减</strong>：每隔 1s 所有元素的统计频次 Ci 衰减为 Ci &#x3D; Ci &#x2F; n, n为衰减因子，且n大于1 </p>
+<p>假如qps为x，k秒后的值为等比数列求和，当k区域无穷大时，C(j,k) &#x3D; n&#x2F;(n-1) * x</p>
+<h3 id="京东"><a href="#京东" class="headerlink" title="京东"></a>京东</h3><p><strong>1、etcd集群</strong></p>
+<p>etcd作为一个高性能的配置中心，可以以极小的资源占用，提供高效的监听订阅服务。主要用于存放规则配置，各worker的ip地址，以及探测出的热key、手工添加的热key等。</p>
+<p><strong>2、client端jar包</strong></p>
+<p>就是在服务中添加的引用jar，引入后，就可以以便捷的方式去判断某key是否热key。同时，该jar完成了key上报、监听etcd里的rule变化、worker信息变化、热key变化，对热key进行本地caffeine缓存等。</p>
+<p><strong>3、worker端集群</strong></p>
+<p>worker端是一个独立部署的Java程序，启动后会连接etcd，并定期上报自己的ip信息，供client端获取地址并进行长连接。之后，主要就是对各个client发来的待测key进行累加计算，当达到etcd里设定的rule阈值后，将热key推送到各个client。</p>
+<p><strong>4、dashboard控制台</strong></p>
+<p>控制台是一个带可视化界面的Java程序，也是连接到etcd，之后在控制台设置各个APP的key规则，譬如2秒出现20次算热key。然后当worker探测出来热key后，会将key发往etcd，dashboard也会监听热key信息，进行入库保存记录。同时，dashboard也可以手工添加、删除热key，供各个client端监听。</p>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919359.png" srcset="/img/loading.gif" lazyload alt="image-20241009162919213"></p>
+<h3 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h3><p>Burning的架构设计遵循了以上热点探测的技术原理，同时借鉴了jd-hotKey的设计思路，主要分为Burning-Admin、Burning-Worker、Burning-Config、Burning-Client四个模块：</p>
 <ul>
-<li>无论是ConsumeQueue还是CommitLog都使用mmap进行写</li>
+<li><strong>Burning-Admin （热点探测管理台）</strong>：与Worker节点Netty长链接通信，提供不同维度的应用管理和热点规则配置，提供查询热点数据统计，规则和热点数据监控大盘，提供工作集群信息查询及客户端节点信息查询，提供本地缓存动态配置及热点信息实时通知</li>
+<li><strong>Burning-Worker（热点集中计算单元）</strong>：无状态server端，与管理台和客户端进行Netty长链接通信，获取规则，滑动窗口计算热点，将热点记录推送到管理台展示和客户端处理</li>
+<li><strong>Burning-Config（热点配置中心）</strong>：作为热点、规则配置中心和注册中心，将规则配置下发到Worker节点和客户端，通过Raft算法进行系统高可用一致性保证</li>
+<li><strong>Burning-Client（热点客户端SDK）</strong>：与Worker节点建立Netty长链接通信，监听配置中心配置变化定时推送热Key数据，获取热Key推送本地内缓存设置，与Redis-client无缝集成及其他ORM框架无缝集成</li>
 </ul>
-<p>读（消费）消息：</p>
-<ul>
-<li>无论是ConsumeQueue还是CommitLog都使用mmap进行读</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">buf = mmap(file, len);<br>write(sockfd, buf, len);<br><br><span class="hljs-comment">// 两次系统调用 3次数据拷贝（减少一次内核到用户拷贝）</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/image-20240923115304549.png" srcset="/img/loading.gif" lazyload alt="image-20240923115304549"></p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><table>
-<thead>
-<tr>
-<th></th>
-<th>Kafka</th>
-<th>RocketMQ</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>文件结构</strong></td>
-<td>1.index索引文件 +log文件<br />2.多个队列多个segment消息文件</td>
-<td>1.ConsumeQueue索引文件 <br />2.多个队列一个CommitLog消息文件</td>
-</tr>
-<tr>
-<td><strong>IO写</strong></td>
-<td>1.index文件采用mmap 2.segment采用write</td>
-<td>均采用mmap</td>
-</tr>
-<tr>
-<td><strong>IO读</strong></td>
-<td>1.index文件采用mmap 2.segment采用sendfile</td>
-<td>均采用mmap</td>
-</tr>
-<tr>
-<td><strong>优点</strong></td>
-<td>1.每个topic的队列互不影响 <br />2.数据量较大（&gt;4kb）时写入性能更高 <br />3.消费时可以利用sendfile+DMA零拷贝机制</td>
-<td>1.commitLog完全顺序写 <br />2.单机可以配置更多队列</td>
-</tr>
-<tr>
-<td><strong>缺点</strong></td>
-<td>1.单机队列配置较多时，有性能损失</td>
-<td>1.随机读遇到缺页中断成本高 <br />2.不能利用sendfile机制</td>
-</tr>
-</tbody></table>
-<p>架构上做减法</p>
-<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>rocketmq </p>
-<ul>
-<li>tag过滤</li>
-<li>支持事务</li>
-<li>延时队列</li>
-<li>死信队列</li>
-</ul>
-<p>sendfile更快，为什么rocketmq不使用？</p>
-<p><code>sendfile</code> 更适用于简单的文件传输，而 RocketMQ 需要对消息数据进行一定的处理和转换（例如死信队列）。<code>mmap</code> 允许直接在用户态中对文件数据进行操作，提供了更大的灵活性。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1m7421Z7fN">https://www.bilibili.com/video/BV1m7421Z7fN</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://t1mek1ller.github.io/2019/11/13/kafka-rocketmq-storage/">Kafka和RocketMQ文件存储机制对比 (t1mek1ller.github.io)</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://tech.meituan.com/2015/01/13/kafka-fs-design-theory.html">Kafka文件存储机制那些事 - 美团技术团队 (meituan.com)</a>
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919360.png" srcset="/img/loading.gif" lazyload alt="image-20241009162933639"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/nazeniwaresakini/article/details/109113529">大数据流的在线Heavy Hitters算法（上篇）：基于计数器的方法-CSDN博客</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv20999025/">热点检测治理 - 哔哩哔哩 (bilibili.com)</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/xOzEj5HtCeh_ezHDPHw6Jw">京东毫秒级热key探测框架设计与实践，已实战于618大促 (qq.com)</a>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://tech.dewu.com/article?id=23">得物热点探测技术架构设计与实践 (dewu.com)</a>
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -456,7 +439,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E5%BC%80%E5%8F%91/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="category-chain-item">中间件</a>
+  <a href="/categories/%E5%BC%80%E5%8F%91/%E9%AB%98%E5%B9%B6%E5%8F%91/" class="category-chain-item">高并发</a>
   
   
 
@@ -473,7 +456,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/">#消息队列</a>
+        <a href="/tags/%E7%83%AD%E7%82%B9key/">#热点key</a>
+      
+        <a href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/">#高并发</a>
       
     </div>
   
@@ -487,18 +472,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/10/TechDigest/%E5%B8%B8%E8%A7%81%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/" title="常见限流算法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">常见限流算法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/06/17/TechDigest/2.%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1-MQ/" title="2.分布式事务-MQ">
-                        <span class="hidden-mobile">2.分布式事务-MQ</span>
+                      <a href="/2024/07/10/TechDigest/%E5%B8%B8%E8%A7%81%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/" title="常见限流算法">
+                        <span class="hidden-mobile">常见限流算法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
