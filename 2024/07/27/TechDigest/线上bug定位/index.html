@@ -16,25 +16,24 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="对于访问流量的热点检测，本质是如何从流式数据计算出topk。对于有限的数据项，可以简单地使用 Hashmap+Heap-Sort来对数据进行计数排序。但是对于海量数据以及有限的内存，该方法几乎是行不通的。因此我们需要使用更高效的数据结构和算法来实现。 Majority问题 数组中有一个数字出现的次数超过数组长度的一半 m &#x2F; 2，请找出这个数字。  169. 多数元素 - 力扣（Leet">
+    <meta name="description" content="BUG处理feature还是bug 大规模项目，沉淀所有的feature也有难度，需求也是不断变化的（QA） bug紧急程度、bug负责团队以及人员  处理步骤 紧急止损：根据 bug 的严重性，判断是否需要快速下线相关功能或回滚版本。对于影响较大的 bug，应优先考虑通过回滚代码或关闭功能模块来避免对用户产生进一步影响。 问题排查 事后复盘  排查基本解决思路 清缓存：对象加了字段，数据库用脚本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hotKey检测">
-<meta property="og:url" content="http://example.com/2024/07/20/TechDigest/hotKey%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:title" content="线上BUG定位">
+<meta property="og:url" content="http://example.com/2024/07/27/TechDigest/%E7%BA%BF%E4%B8%8Abug%E5%AE%9A%E4%BD%8D/index.html">
 <meta property="og:site_name" content="Xun&#39;s Blog">
-<meta property="og:description" content="对于访问流量的热点检测，本质是如何从流式数据计算出topk。对于有限的数据项，可以简单地使用 Hashmap+Heap-Sort来对数据进行计数排序。但是对于海量数据以及有限的内存，该方法几乎是行不通的。因此我们需要使用更高效的数据结构和算法来实现。 Majority问题 数组中有一个数字出现的次数超过数组长度的一半 m &#x2F; 2，请找出这个数字。  169. 多数元素 - 力扣（Leet">
+<meta property="og:description" content="BUG处理feature还是bug 大规模项目，沉淀所有的feature也有难度，需求也是不断变化的（QA） bug紧急程度、bug负责团队以及人员  处理步骤 紧急止损：根据 bug 的严重性，判断是否需要快速下线相关功能或回滚版本。对于影响较大的 bug，应优先考虑通过回滚代码或关闭功能模块来避免对用户产生进一步影响。 问题排查 事后复盘  排查基本解决思路 清缓存：对象加了字段，数据库用脚本">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919360.png">
-<meta property="article:published_time" content="2024-07-20T12:33:46.000Z">
-<meta property="article:modified_time" content="2024-10-09T11:20:38.885Z">
+<meta property="og:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410291625641.png">
+<meta property="article:published_time" content="2024-07-27T12:33:46.000Z">
+<meta property="article:modified_time" content="2024-10-29T08:27:49.963Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="热点key">
-<meta property="article:tag" content="高并发">
+<meta property="article:tag" content="线上处理">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919360.png">
+<meta name="twitter:image" content="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410291625641.png">
   
   
   
-  <title>hotKey检测 - Xun&#39;s Blog</title>
+  <title>线上BUG定位 - Xun&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -217,7 +216,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">hotKey检测</span>
+            <span id="subtitle">线上BUG定位</span>
           
         </div>
 
@@ -228,8 +227,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-20 20:33" pubdate>
-          2024年7月20日 晚上
+        <time datetime="2024-07-27 20:33" pubdate>
+          2024年7月27日 晚上
         </time>
       </span>
     
@@ -240,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          1.7k 字
         
       </span>
     
@@ -251,7 +250,7 @@
         
         
         
-          23 分钟
+          15 分钟
         
       </span>
     
@@ -310,113 +309,91 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">hotKey检测</h1>
+            <h1 style="display: none">线上BUG定位</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>对于访问流量的热点检测，本质是如何从流式数据计算出topk。对于有限的数据项，可以简单地使用 Hashmap+Heap-Sort来对数据进行计数排序。但是对于海量数据以及有限的内存，该方法几乎是行不通的。因此我们需要使用更高效的数据结构和算法来实现。</p>
-<h3 id="Majority问题"><a href="#Majority问题" class="headerlink" title="Majority问题"></a>Majority问题</h3><blockquote>
-<p>数组中有一个数字出现的次数超过数组长度的一半 m &#x2F; 2，请找出这个数字。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/majority-element/description/">169. 多数元素 - 力扣（LeetCode）</a></p>
-<p>解决：维护一个候选元素以及数量，如果下一个元素相同，则++， 否者–；计数为0时更换候选元素</p>
-<ul>
-<li>最多扣减 m &#x2F; 2 - 1次，因此majority元素不会被扣成0</li>
+                <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="BUG处理"><a href="#BUG处理" class="headerlink" title="BUG处理"></a>BUG处理</h2><h3 id="feature还是bug"><a href="#feature还是bug" class="headerlink" title="feature还是bug"></a>feature还是bug</h3><ul>
+<li>大规模项目，沉淀所有的feature也有难度，需求也是不断变化的（QA）</li>
+<li>bug紧急程度、bug负责团队以及人员</li>
 </ul>
-<h3 id="Misra-Gries算法"><a href="#Misra-Gries算法" class="headerlink" title="Misra-Gries算法"></a>Misra-Gries算法</h3><p>推广</p>
-<blockquote>
-<p>数据流中一共有m个元素，请找出出现频率超过m &#x2F; k的k - 1个元素。</p>
-</blockquote>
-<p>维护k - 1个候选值与计数器的集合：</p>
-<ul>
-<li><p>如果元素在集合中，将其对应的计数器自增；</p>
-</li>
-<li><p>如果元素不在集合中且集合未满，就将元素加入集合，计数器设为1；</p>
-</li>
-<li><p>如果元素不在集合中且集合已满，将集合内所有计数器自减，计数器减为0的元素被移</p>
-</li>
-<li><p>每次减少计数k次（k-1 + 触发元素1），最多减少m&#x2F;k 次，所以最终大于m&#x2F;k的一定能留下来</p>
-</li>
-<li><p>最终结果能够保证没有假阴性（false negative），即不会漏掉实际频率高于m &#x2F; k的元素。但可能会出现假阳性（false positive），即混入实际频率低于m &#x2F; k的元素。</p>
-</li>
-</ul>
-<h3 id="Lossy-Counting"><a href="#Lossy-Counting" class="headerlink" title="Lossy Counting"></a>Lossy Counting</h3><ul>
-<li>将数据切分成k个窗口，每次添加窗口内元素的频率并且最后 所有元素频率–，删除等于零的元素</li>
-<li>窗口越大误差越小</li>
-</ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919356.png" srcset="/img/loading.gif" lazyload alt="image-20241009151313681"></p>
-<h3 id="Count-Min-Sketch"><a href="#Count-Min-Sketch" class="headerlink" title="Count-Min Sketch"></a>Count-Min Sketch</h3><ul>
-<li><p>一个二维数组，宽w（桶的个数），深度d（hash函数个数）</p>
-</li>
-<li><p>d个hash函数</p>
-</li>
-<li><p>每一个元素x，通过d个hash映射到d个位置上++</p>
-</li>
-<li><p>计数时，为d个hash函数的结果最小值；</p>
-</li>
-<li><p>结果偏大，hash冲突越低约接近真实值</p>
-</li>
-<li><p>获得topk：额外维护一个最小堆topk</p>
-</li>
-</ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919357.png" srcset="/img/loading.gif" lazyload alt="image-20241009151820033"></p>
-<h3 id="HeavyKeeper"><a href="#HeavyKeeper" class="headerlink" title="HeavyKeeper"></a>HeavyKeeper</h3><p>2018年提出，对CM sketch算法在hash冲突时进行了优化，使用指纹结合指数衰减，剔除低频袁术</p>
-<ol>
-<li><p>初始化d个w桶的哈希表,所有指纹和计数器置零</p>
-</li>
-<li><p>对于数据流中的每个元素x:</p>
-<ul>
-<li>计算d个哈希值: h1(x), h2(x), …, hd(x)</li>
-<li>对每个哈希表i (1 ≤ i ≤ d):<ul>
-<li>if 第hi(x)个桶的指纹为空或等于x的指纹:<ul>
-<li>增加计数器</li>
-</ul>
-</li>
-<li>else:<ul>
-<li>以一定概率减少计数器<code>P = b^(-C)</code>，<strong>C越小衰减概率越低，可用保证低频元素快速被剔除，而高频可以保留</strong><ul>
-<li>b 是一个大于1的参数，通常设置为1.08</li>
-<li>C 是当前的计数器值</li>
-</ul>
-</li>
-<li>如果计数器变为0,则用x的指纹替换当前指纹</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>查询时,返回d个表中x对应位置的最大计数值作为频率估计</p>
-</li>
+<h3 id="处理步骤"><a href="#处理步骤" class="headerlink" title="处理步骤"></a>处理步骤</h3><ol>
+<li><strong>紧急止损</strong>：根据 bug 的严重性，判断是否需要快速下线相关功能或回滚版本。对于影响较大的 bug，应优先考虑通过回滚代码或关闭功能模块来避免对用户产生进一步影响。</li>
+<li>问题排查</li>
+<li>事后复盘</li>
 </ol>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919358.png" srcset="/img/loading.gif" lazyload alt="image-20241009154341231"></p>
-<p><strong>突发流量：</strong></p>
-<p>原始的算法实现在统计topk的时候具有很高的准确率，但是对于在线<strong>实时热点统计</strong>，当出现突发热点数据的时候，由于历史数据流的频次统计堆积，原有算法很难快速识别突发热点。举个简单例子:</p>
-<p>在实时数据流中统计出现频次最高的 top3，假设元素 a b c 是历史数据中访问频次最高的三个元素，且qps 都为10 ，在不考虑哈希冲突的情况下，假设数据流持续了1000s， 那么此时二维数组中这三个元素对应的频次则都为 1w, 从1001s开始，出现了一个突发热点元素d， 元素 d 的 qps 为100，按原始算法， 元素 d 得在频次超过1w以后才会被加入top3，当频次达到1w时，距离突发热点出现已经过去了100s，原始实现对于突发热点的检测是相当迟钝的。</p>
-<p><strong>引入衰减</strong>：每隔 1s 所有元素的统计频次 Ci 衰减为 Ci &#x3D; Ci &#x2F; n, n为衰减因子，且n大于1 </p>
-<p>假如qps为x，k秒后的值为等比数列求和，当k区域无穷大时，C(j,k) &#x3D; n&#x2F;(n-1) * x</p>
-<h3 id="京东"><a href="#京东" class="headerlink" title="京东"></a>京东</h3><p><strong>1、etcd集群</strong></p>
-<p>etcd作为一个高性能的配置中心，可以以极小的资源占用，提供高效的监听订阅服务。主要用于存放规则配置，各worker的ip地址，以及探测出的热key、手工添加的热key等。</p>
-<p><strong>2、client端jar包</strong></p>
-<p>就是在服务中添加的引用jar，引入后，就可以以便捷的方式去判断某key是否热key。同时，该jar完成了key上报、监听etcd里的rule变化、worker信息变化、热key变化，对热key进行本地caffeine缓存等。</p>
-<p><strong>3、worker端集群</strong></p>
-<p>worker端是一个独立部署的Java程序，启动后会连接etcd，并定期上报自己的ip信息，供client端获取地址并进行长连接。之后，主要就是对各个client发来的待测key进行累加计算，当达到etcd里设定的rule阈值后，将热key推送到各个client。</p>
-<p><strong>4、dashboard控制台</strong></p>
-<p>控制台是一个带可视化界面的Java程序，也是连接到etcd，之后在控制台设置各个APP的key规则，譬如2秒出现20次算热key。然后当worker探测出来热key后，会将key发往etcd，dashboard也会监听热key信息，进行入库保存记录。同时，dashboard也可以手工添加、删除热key，供各个client端监听。</p>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919359.png" srcset="/img/loading.gif" lazyload alt="image-20241009162919213"></p>
-<h3 id="得物"><a href="#得物" class="headerlink" title="得物"></a>得物</h3><p>Burning的架构设计遵循了以上热点探测的技术原理，同时借鉴了jd-hotKey的设计思路，主要分为Burning-Admin、Burning-Worker、Burning-Config、Burning-Client四个模块：</p>
-<ul>
-<li><strong>Burning-Admin （热点探测管理台）</strong>：与Worker节点Netty长链接通信，提供不同维度的应用管理和热点规则配置，提供查询热点数据统计，规则和热点数据监控大盘，提供工作集群信息查询及客户端节点信息查询，提供本地缓存动态配置及热点信息实时通知</li>
-<li><strong>Burning-Worker（热点集中计算单元）</strong>：无状态server端，与管理台和客户端进行Netty长链接通信，获取规则，滑动窗口计算热点，将热点记录推送到管理台展示和客户端处理</li>
-<li><strong>Burning-Config（热点配置中心）</strong>：作为热点、规则配置中心和注册中心，将规则配置下发到Worker节点和客户端，通过Raft算法进行系统高可用一致性保证</li>
-<li><strong>Burning-Client（热点客户端SDK）</strong>：与Worker节点建立Netty长链接通信，监听配置中心配置变化定时推送热Key数据，获取热Key推送本地内缓存设置，与Redis-client无缝集成及其他ORM框架无缝集成</li>
+<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><h4 id="基本解决思路"><a href="#基本解决思路" class="headerlink" title="基本解决思路"></a>基本解决思路</h4><ul>
+<li><p>清缓存：对象加了字段，数据库用脚本补充了，但缓存没有补充，导致缓存数据不完整</p>
+</li>
+<li><p>刷新</p>
+</li>
+<li><p>重启：可能可以临时解决问题，但会影响bug定位</p>
+</li>
+<li><p>单例数据：YAML对象被别人修改了，导致后续其他业务场景出现BUG</p>
+</li>
+<li><p>维护一个文档，常见问题以及解决方法</p>
+</li>
+<li><p>非生产以及本地写代码时，养成习惯不要依靠单步调试，<strong>以日志为主</strong></p>
+</li>
+<li><p>不依赖本地项目启动来测试服务，而是通过单元测试实现</p>
+</li>
 </ul>
-<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410091919360.png" srcset="/img/loading.gif" lazyload alt="image-20241009162933639"></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://blog.csdn.net/nazeniwaresakini/article/details/109113529">大数据流的在线Heavy Hitters算法（上篇）：基于计数器的方法-CSDN博客</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv20999025/">热点检测治理 - 哔哩哔哩 (bilibili.com)</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/xOzEj5HtCeh_ezHDPHw6Jw">京东毫秒级热key探测框架设计与实践，已实战于618大促 (qq.com)</a>
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://tech.dewu.com/article?id=23">得物热点探测技术架构设计与实践 (dewu.com)</a>
-<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<h4 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h4><p>逻辑+数据，逻辑在代码中，但不同的数据也会走不同的逻辑，生产的完整数据比较难拿到</p>
+<ul>
+<li>看日志（生产INFO，测试DEBUG）以及错误码定位问题</li>
+<li>链路追踪，在链路中定位问题</li>
+<li>测试环境复现，远程debug</li>
+<li>生产环境复现</li>
+<li>打印入参出参：开关</li>
+</ul>
+<h2 id="CPU占用高"><a href="#CPU占用高" class="headerlink" title="CPU占用高"></a>CPU占用高</h2><p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410291625637.png" srcset="/img/loading.gif" lazyload alt="image-20241029154240811"></p>
+<h3 id="业务问题"><a href="#业务问题" class="headerlink" title="业务问题"></a>业务问题</h3><h4 id="死循环"><a href="#死循环" class="headerlink" title="死循环"></a>死循环</h4><p>例如：我们有一段代码用来检查文件的更新状态，但由于逻辑错误，条件永远无法满足，结果程序进入了死循环。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-keyword">if</span> (file.isUpdated()) &#123;<br>        <span class="hljs-keyword">break</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><ul>
+<li>如果是自旋等待，就会耗尽CPU</li>
+<li>如果是休眠等待，例如synchronized ，会耗尽系统资源（线程、内存、锁、数据库连接、文件句柄）</li>
+</ul>
+<p><img src="https://proxy.gogoes.buzz/proxy/raw.githubusercontent.com/Goinggoinggoing/image/main/blogimg/202410291625640.png" srcset="/img/loading.gif" lazyload alt="image-20241029154327812"></p>
+<h3 id="并发问题"><a href="#并发问题" class="headerlink" title="并发问题"></a>并发问题</h3><p>使用线程池来管理线程资源，设置合理的线程数量</p>
+<h3 id="内存问题"><a href="#内存问题" class="headerlink" title="内存问题"></a>内存问题</h3><h4 id="内存不足"><a href="#内存不足" class="headerlink" title="内存不足"></a>内存不足</h4><p>当系统内存不足时，就会将磁盘存储作为虚拟内存使用，而虚拟内存的运行速度要慢得多。</p>
+<blockquote>
+<p>例如：直接一次性加载一个非常大的文件到内存中，导致内存不足</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">byte</span>[] largeData = Files.readAllBytes(Paths.get(<span class="hljs-string">&quot;largeFile.txt&quot;</span>))<br></code></pre></td></tr></table></figure>
+
+<p>这种过度的分页和交换会导致 CPU 占用率居高不下，因为处理器需要花费更多时间来管理内存访问，而不是高效地执行进程。</p>
+<p><strong>解决方案</strong>：优化内存使用，采用流式处理避免一次性加载大文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> Files.newBufferedReader(Paths.get(<span class="hljs-string">&quot;largeFile.txt&quot;</span>))) &#123;<br>    String line;<br>    <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) &#123;<br>        <span class="hljs-comment">// 处理每一行数据</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="频繁GC"><a href="#频繁GC" class="headerlink" title="频繁GC"></a>频繁GC</h4><p>频繁的垃圾回收（GC）操作会占用大量CPU资源，导致性能下降。</p>
+<blockquote>
+<p>例如：程序中频繁创建和销毁对象，导致GC频繁触发</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; i++) &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(<span class="hljs-string">&quot;temp&quot;</span> + i);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h4><p>内存资源没有释放，例如文件、http请求没有close、线程创建后卡死在某个地方没有销毁</p>
+<h3 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h3><h4 id="jstack"><a href="#jstack" class="headerlink" title="jstack"></a>jstack</h4><p>首先，需要找到CPU占用高的Java进程的PID（进程ID）。可以使用 top 或 ps 命令来找到该进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">jps <span class="hljs-comment"># java的进程</span><br>top -H -p &lt;PID&gt; <span class="hljs-comment"># 找到进程中最耗 CPU 的线程 ID</span><br><span class="hljs-built_in">printf</span> <span class="hljs-string">&quot;%x\n&quot;</span> &lt;thread_id&gt;  <span class="hljs-comment"># 转换为十六进制</span><br>jstack -l &lt;PID&gt; &gt; thread_dump.txt  <span class="hljs-comment"># 生成线程快照</span><br>grep <span class="hljs-string">&quot;0x&lt;hex_thread_id&gt;&quot;</span> thread_dump.txt -A 20  <span class="hljs-comment"># 显示包含该线程ID的线程栈信息</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="Arthas"><a href="#Arthas" class="headerlink" title="Arthas"></a>Arthas</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -O https://arthas.aliyun.com/arthas-boot.jar<br>java -jar arthas-boot.jar  <span class="hljs-comment"># 启动</span><br><br>dashboard <span class="hljs-comment"># 显示整体性能  memory情况</span><br>thread -n 3  <span class="hljs-comment"># CPU 使用率最高的 3 个线程</span><br>thread 8 <span class="hljs-comment"># 8号线程堆栈信息</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.nowcoder.com/discuss/676462263401836544?sourceSSR=users">面试官最爱问：CPU100%如何处理？_牛客网</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1iU2WYnENL/">如何快速定位问题_哔哩哔哩_bilibili</a>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
                 
               </div>
             
@@ -437,13 +414,6 @@
   <a href="/categories/%E5%BC%80%E5%8F%91/" class="category-chain-item">开发</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/%E5%BC%80%E5%8F%91/%E9%AB%98%E5%B9%B6%E5%8F%91/" class="category-chain-item">高并发</a>
-  
-  
-
-  
 
       </span>
     
@@ -456,9 +426,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%83%AD%E7%82%B9key/">#热点key</a>
-      
-        <a href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/">#高并发</a>
+        <a href="/tags/%E7%BA%BF%E4%B8%8A%E5%A4%84%E7%90%86/">#线上处理</a>
       
     </div>
   
@@ -472,18 +440,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/27/TechDigest/%E7%BA%BF%E4%B8%8Abug%E5%AE%9A%E4%BD%8D/" title="线上BUG定位">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">线上BUG定位</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/10/TechDigest/%E5%B8%B8%E8%A7%81%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95/" title="常见限流算法">
-                        <span class="hidden-mobile">常见限流算法</span>
+                      <a href="/2024/07/20/TechDigest/hotKey%E6%A3%80%E6%B5%8B/" title="hotKey检测">
+                        <span class="hidden-mobile">hotKey检测</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
